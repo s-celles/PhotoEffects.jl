@@ -1,0 +1,64 @@
+# Deny-by-default: ignore everything, then allow specific files below.
+*
+
+# Allow descending into subdirectories (required before allowing files).
+!*/
+
+# Julia source & package metadata
+!*.jl
+!*.toml
+!*.cff
+
+# Extensions files for Julia packages
+!ext/
+!ext/*.jl
+
+# Docs & repo metadata. Named one by one rather than `!*.md`: a blanket
+# allow on markdown lets working notes and scratch files into the tree by
+# default, which is the opposite of what deny-by-default is for. A pattern
+# with no slash matches at any depth, so `!README.md` covers docs/README.md
+# too. Add a line here when a document is meant to be published.
+!README.md
+!CHANGELOG.md
+!ROADMAP.md
+!CONTRIBUTING.md
+!CODE_OF_CONDUCT.md
+!SECURITY.md
+!LICENSE
+!LICENSE.*
+!CITATION*
+!.gitignore
+!.gitattributes
+!.editorconfig
+
+# Tooling configs
+!*.yml
+!*.yaml
+!*.json
+!*.sh
+!Makefile
+
+# Re-ignore Julia / docs build artifacts (overrides allow list above).
+Manifest.toml
+/docs/build/
+/docs/site/
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+lcov.info
+
+# Renders are outputs and regenerate themselves. The version-controlled
+# wallpapers live in the config repo, not here.
+*.png
+*.jpg
+*.jpeg
+*.heic
+*.mp4
+*.webm
+
+# Re-ignore editor / OS / env files.
+.vscode/
+.idea/
+.DS_Store
+.env
+.env.local
