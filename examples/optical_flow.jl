@@ -45,8 +45,8 @@ function advect_points(pts, interp_vx, interp_vy, w, h, dt)
 end
 
 function generate_flow_animation()
-    println("Loading test image...")
-    img = testimage("fabio")
+    println("Loading test image (landscape)...")
+    img = testimage("lake")
     h, w = size(img)
     
     println("Computing flow field...")
