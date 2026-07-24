@@ -10,6 +10,14 @@ written once for the whole catalogue.
 """
 abstract type AbstractEffect end
 
+function Base.:(==)(a::T, b::T) where T <: AbstractEffect
+    all(getfield(a, f) == getfield(b, f) for f in fieldnames(T))
+end
+
+function Base.hash(a::T, h::UInt) where T <: AbstractEffect
+    foldr(hash, (getfield(a, f) for f in fieldnames(T)), init=hash(T, h))
+end
+
 """
 Apply `effect` to `img` and return the transformed image.
 
@@ -40,3 +48,38 @@ This is the method each effect must implement; [`apply`](@ref) builds on it
 and adds the twilight variant.
 """
 function _render end
+
+"""
+    frame(f, img, t)
+
+Isolated frame generation without shared state.
+"""
+function frame(f, img, t)
+    return apply(f(t), img)
+end
+
+"""
+    render(f, img, times)
+
+Lazy evaluation of a sequence of frames. `f` is a function `t -> AbstractEffect`.
+Returns an iterator of frames.
+"""
+function render(f, img, times)
+    return RenderSequence(f, img, times)
+end
+
+struct RenderSequence{F, I, T}
+    f::F
+    img::I
+    times::T
+end
+
+Base.length(r::RenderSequence) = length(r.times)
+Base.eltype(::Type{<:RenderSequence}) = Matrix{RGB{N0f8}}
+
+function Base.iterate(r::RenderSequence, state=nothing)
+    it = state === nothing ? iterate(r.times) : iterate(r.times, state)
+    it === nothing && return nothing
+    t, next_state = it
+    return (frame(r.f, r.img, t), next_state)
+end

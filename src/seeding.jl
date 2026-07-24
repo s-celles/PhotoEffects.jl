@@ -134,3 +134,62 @@ function _border_points(h::Integer, w::Integer; steps::Integer = 16)
     end
     return unique(pts)
 end
+
+"""
+Base type for point generation strategies.
+"""
+abstract type Seeding end
+
+"""
+Pseudo-random point draw concentrated along image edges.
+"""
+struct Scatter <: Seeding
+    points::Int
+    detail::Float64
+    background::Float64
+    seed::Int
+
+    function Scatter(; points::Integer = 3000,
+                     detail::Real = 1.4,
+                     background::Real = 5.0,
+                     seed::Integer = 20260508)
+        points >= 1 ||
+            throw(ArgumentError("points must be >= 1, got $points"))
+        detail >= 0 ||
+            throw(ArgumentError("detail must be >= 0, got $detail"))
+        background >= 0 ||
+            throw(ArgumentError("background must be >= 0, got $background"))
+        return new(Int(points), Float64(detail), Float64(background), Int(seed))
+    end
+end
+
+"""
+Explicit point cloud. Terminal strategy: `sow(::Given, _)` returns itself.
+"""
+struct Given{P <: AbstractVector{<:SVector{2, Float64}}} <: Seeding
+    points::P
+end
+
+Base.:(==)(a::Given, b::Given) = a.points == b.points
+Base.hash(a::Given, h::UInt) = hash(a.points, hash(:Given, h))
+
+"""
+    sow(s::Seeding, img) -> Given
+
+Resolve a seeding strategy into an explicit point cloud for a given image.
+"""
+function sow end
+
+function sow(s::Scatter, img::AbstractMatrix{<:Colorant})
+    rng = StableRNG(s.seed)
+    # _sample_points requires img edges
+    seeds = _sample_points(_edge_map(img), s.points, rng, s.detail;
+                           background = s.background)
+    
+    # We store the points as SVector{2, Float64} in Given for performance (DEC-2)
+    # The coordinate system is the same pixel domain [1, w] x [1, h] (DEC-1)
+    pts = SVector{2, Float64}[SVector{2, Float64}(p[1], p[2]) for p in seeds]
+    return Given(pts)
+end
+
+sow(g::Given, img::AbstractMatrix{<:Colorant}) = g

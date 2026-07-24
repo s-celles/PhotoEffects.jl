@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `Seeding` hierarchy (`Scatter`, `Given`, `sow`) to extract point generation into a first-class citizen.
+- `render` and `frame` to lazily evaluate sequences of frames (`t -> AbstractEffect`) or generate isolated frames.
 - `AbstractEffect` hierarchy and the `apply` entry point, dispatching on the
   effect type.
 - `Oil` effect — oil painting through the Kuwahara filter. Integral images
@@ -35,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- `Voronoi` and `LowPoly` now carry a `seeding::Seeding` field instead of scattering parameters. The old keyword constructors are preserved for backward compatibility (they implicitly build a `Scatter` strategy), causing no breaking change.
 - The edge map now scales gradient magnitudes by their 95th percentile,
   clamping above it, instead of dividing by the maximum. A single extreme
   gradient — a specular highlight, a blown sky — used to set the scale for the

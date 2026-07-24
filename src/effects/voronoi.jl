@@ -20,37 +20,30 @@ triangulation of the same seeds.
     geometry will become necessary to stroke the leading of a stained-glass
     render, or for Lloyd relaxation.
 """
-struct Voronoi <: AbstractEffect
-    "Number of seeds, i.e. the number of cells."
-    points::Int
-    "How sharply seeds concentrate within the edge term. Peaks around 2."
-    detail::Float64
-    "Uniform floor, as a multiple of the mean edge weight. It carries `background / (1 + background)` of the draw."
-    background::Float64
-    "Seed of the point draw. Equal seeds give identical renders."
-    seed::Int
+struct Voronoi{S <: Seeding} <: AbstractEffect
+    seeding::S
+
+    function Voronoi(seeding::Seeding)
+        return new{typeof(seeding)}(seeding)
+    end
 
     function Voronoi(; points::Integer = 3000,
                      detail::Real = 1.4,
                      background::Real = 5.0,
                      seed::Integer = 20260508)
-        points >= 1 ||
-            throw(ArgumentError("points must be >= 1, got $points"))
-        detail >= 0 ||
-            throw(ArgumentError("detail must be >= 0, got $detail"))
-        background >= 0 ||
-            throw(ArgumentError("background must be >= 0, got $background"))
-        return new(Int(points), Float64(detail), Float64(background), Int(seed))
+        return new{Scatter}(Scatter(; points, detail, background, seed))
     end
 end
 
 function _render(effect::Voronoi, img::AbstractMatrix{RGB{N0f8}})
     h, w = size(img)
-    rng = StableRNG(effect.seed)
-    seeds = _sample_points(_edge_map(img), effect.points, rng, effect.detail;
-                           background = effect.background)
+    g = sow(effect.seeding, img)
+    if length(g.points) < 1
+        throw(ArgumentError("Voronoi requires at least 1 point"))
+    end
+    seeds = g.points
 
-    tree = KDTree(reduce(hcat, [SVector(p[1], p[2]) for p in seeds]))
+    tree = KDTree(reduce(hcat, seeds))
     n = length(seeds)
 
     sums = zeros(Int, n, 3)

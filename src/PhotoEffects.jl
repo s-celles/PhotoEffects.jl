@@ -45,6 +45,7 @@ include("effects/halftone.jl")
 export AbstractEffect, Duotone, Halftone, LowPoly, Oil, Posterize, Voronoi
 export apply, fit_cover, twilight
 export Appearance, HalftoneShape
+export Seeding, Scatter, Given, sow, render, frame
 
 @setup_workload begin
     img = rand(RGB{N0f8}, 32, 48)

@@ -85,6 +85,23 @@ Both start from the same seeding: points drawn **dense along edges** and
 sparse over flat areas, so facets are small where the image varies and large
 across the sky — that is what makes shapes survive the simplification.
 
+The seeding strategy is a first-class citizen of the API. By default, constructing an effect generates a pseudo-random draw:
+```julia
+effect = Voronoi(points = 3000, seed = 42)
+```
+But you can extract this step via the `Seeding` hierarchy:
+```julia
+# 1. Define the strategy
+strategy = Scatter(points = 3000, seed = 42)
+
+# 2. Resolve it into an explicit point cloud
+cloud = sow(strategy, img) # Returns a Given(...) containing the points
+
+# 3. Apply it
+out = apply(Voronoi(cloud), img)
+```
+Passing a `Given` skips the random draw entirely. This is how you share the same exact seeds across multiple effects, or animate them over time.
+
 They then part ways on the tiling, each the dual of the other:
 
 - `LowPoly` triangulates the seeds (`DelaunayTriangulation.jl`) and fills each
@@ -96,7 +113,7 @@ Sampling without replacement uses the A-Res algorithm of
 Efraimidis–Spirakis: one single sweep instead of the quadratic sequential
 draw of a naive approach.
 
-`seed` fixes the point draw. Equal seeds give identical renders, including
+`seed` fixes the point draw for `Scatter`. Equal seeds give identical renders, including
 across Julia versions: the stream comes from `StableRNGs.jl`, since the
 `Random` stream is not guaranteed stable between versions — which matters
 when the resulting PNGs are version-controlled.
@@ -143,6 +160,22 @@ never through intermediate tones.
 The lattice is rotated (45° by default) because an unrotated screen aligns
 with the pixel grid and beats against it into moiré. Like `Oil`'s radius,
 `cell` is in **pixels** and must scale with the output width.
+
+## Animation and sequences
+
+Effects can be animated by treating a sequence as a function of time `t -> AbstractEffect`. The `render` function lazily evaluates this sequence without holding multiple frames in memory:
+
+```julia
+f(t) = Voronoi(points = 3000, detail = 1.4 + 0.5 * sin(t))
+frames = render(f, img, range(0, 2π, length=60))
+
+# frames is an iterator; consume it to encode a video or save a GIF
+for (i, fr) in enumerate(frames)
+    save("frame_$i.png", fr)
+end
+```
+
+For an isolated frame without shared state, use `frame(f, img, t)`.
 
 ## Cropping
 

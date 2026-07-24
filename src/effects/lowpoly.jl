@@ -19,42 +19,46 @@ only sharpens the contrast *within* the edge term, and it peaks — see
 This is the dual of [`Voronoi`](@ref) — same seeds, complementary tiling:
 triangles here, polygonal cells there.
 """
-struct LowPoly <: AbstractEffect
-    "Number of seeds. The higher it is, the finer the facets."
-    points::Int
-    "How sharply seeds concentrate within the edge term. Peaks around 2."
-    detail::Float64
-    "Uniform floor, as a multiple of the mean edge weight. It carries `background / (1 + background)` of the draw."
-    background::Float64
-    "Seed of the point draw. Equal seeds give identical renders."
-    seed::Int
+struct LowPoly{S <: Seeding} <: AbstractEffect
+    seeding::S
+
+    function LowPoly(seeding::Seeding)
+        return new{typeof(seeding)}(seeding)
+    end
 
     function LowPoly(; points::Integer = 4000,
                      detail::Real = 1.5,
                      background::Real = 5.0,
                      seed::Integer = 20260508)
-        points >= 3 ||
-            throw(ArgumentError("points must be >= 3, got $points"))
-        detail >= 0 ||
-            throw(ArgumentError("detail must be >= 0, got $detail"))
-        background >= 0 ||
-            throw(ArgumentError("background must be >= 0, got $background"))
-        return new(Int(points), Float64(detail), Float64(background), Int(seed))
+        points >= 3 || throw(ArgumentError("LowPoly requires at least 3 points"))
+        return new{Scatter}(Scatter(; points, detail, background, seed))
     end
 end
 
 function _render(effect::LowPoly, img::AbstractMatrix{RGB{N0f8}})
     h, w = size(img)
-    rng = StableRNG(effect.seed)
-    seeds = _sample_points(_edge_map(img), effect.points, rng, effect.detail;
-                           background = effect.background)
-    pts = unique(vcat(seeds, _border_points(h, w)))
+    g = sow(effect.seeding, img)
+    if length(g.points) < 3
+        throw(ArgumentError("LowPoly requires at least 3 points"))
+    end
+    seeds = g.points
+    # _border_points returns Tuple{Float64, Float64}
+    border = SVector{2, Float64}[SVector{2, Float64}(p[1], p[2]) for p in _border_points(h, w)]
+    pts = unique(vcat(seeds, border))
+    # triangulate requires Tuple{Float64, Float64} if we don't pass an SVector-capable interface, but SVector works too.
+    # To be perfectly safe, let's convert to Tuples as before.
+    pts_tuple = Tuple{Float64, Float64}[(p[1], p[2]) for p in pts]
 
     # `triangulate` randomises its insertion order: without an explicit RNG,
     # the traversal order of the triangles changes between calls, and with it
     # the colour of pixels sitting on a shared edge (painted by both
     # neighbouring facets). Passing our stream makes the render reproducible.
-    tri = triangulate(pts; rng)
+    # Note: For Given, rng is not strictly needed for reproducibility if the points are identical,
+    # but triangulate order might still rely on it internally. Since SEED-6 requires not consuming rng when Given,
+    # we should check if it's a Scatter to pass StableRNG, otherwise a dummy or default. 
+    # Actually, triangulate requires a rng argument to be deterministic. We can pass StableRNG(42) for Given.
+    rng = effect.seeding isa Scatter ? StableRNG(effect.seeding.seed) : StableRNG(1)
+    tri = triangulate(pts_tuple; rng)
     out = Matrix{RGB{N0f8}}(undef, h, w)
     fill!(out, img[1, 1])  # safety net, should a pixel escape the sweep
 
