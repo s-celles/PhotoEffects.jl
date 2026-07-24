@@ -58,17 +58,28 @@ function generate_flow_animation()
     pts = initial_seeding.points
     
     # Paramètres de l'animation
-    dt = 25.0 
     N_frames = 50
+    half_N = N_frames ÷ 2
+    
+    println("Precomputing perfectly looped trajectory...")
+    forward_trajectory = [pts]
+    curr = pts
+    for i in 1:half_N
+        # ease-in / ease-out via une vitesse sinusoïdale
+        step_dt = 30.0 * sin(π * (i - 0.5) / half_N)
+        curr = advect_points(curr, interp_vx, interp_vy, w, h, step_dt)
+        push!(forward_trajectory, curr)
+    end
+    
+    # On miroir la trajectoire pour créer une boucle parfaite sans discontinuité
+    # ex: 1, 2, ..., 26, 25, ..., 2 (total = 50 frames)
+    full_trajectory = vcat(forward_trajectory, forward_trajectory[end-1:-1:2])
     
     println("Rendering \$N_frames frames...")
     
-    f = let current_pts = pts, vx=interp_vx, vy=interp_vy, width=w, height=h, step=dt
-        function(t)
-            current_pts = advect_points(current_pts, vx, vy, width, height, step)
-            # Rendu lazy en enveloppant dans un Given
-            return Voronoi(Given(current_pts))
-        end
+    f = function(t)
+        # Rendu lazy en utilisant la trajectoire précalculée
+        return Voronoi(Given(full_trajectory[t]))
     end
     
     frames = render(f, img, 1:N_frames)
