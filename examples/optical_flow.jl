@@ -8,18 +8,18 @@ using ImageCore, ImageFiltering, FileIO, TestImages
 using StaticArrays, Interpolations, Colors
 
 function compute_flow_field(img)
-    # Conversion en niveaux de gris pour le gradient
+    # Convert to grayscale for gradient calculation
     img_gray = Float32.(Gray.(img))
     
-    # Calcul des gradients (filtre de Sobel)
+    # Compute gradients (Sobel filter)
     gy, gx = imgradients(img_gray, KernelFactors.sobel)
     
-    # Le vecteur perpendiculaire (vx, vy) pointe le long des isocontours
+    # The perpendicular vector (vx, vy) points along the isocontours
     vx = -gy
     vy = gx
     
     h, w = size(img)
-    # Interpolation pour un accès subpixel fluide (avec conditions aux bords Flat)
+    # Interpolation for fluid subpixel access (with Flat boundary conditions)
     interp_vx = linear_interpolation((1:h, 1:w), vx, extrapolation_bc=Flat())
     interp_vy = linear_interpolation((1:h, 1:w), vy, extrapolation_bc=Flat())
     
@@ -31,11 +31,11 @@ function advect_points(pts, interp_vx, interp_vy, w, h, dt)
     for p in pts
         x, y = p[1], p[2]
         
-        # Interpolations.jl s'indexe classiquement par (ligne, colonne) -> (y, x)
+        # Interpolations.jl normally uses (row, column) indexing -> (y, x)
         v_x = interp_vx(y, x)
         v_y = interp_vy(y, x)
         
-        # Intégration (Euler explicite)
+        # Integration (explicit Euler)
         x_new = clamp(x + v_x * dt, 1.0, Float64(w))
         y_new = clamp(y + v_y * dt, 1.0, Float64(h))
         
@@ -53,11 +53,11 @@ function generate_flow_animation()
     interp_vx, interp_vy = compute_flow_field(img)
     
     println("Generating initial seeding...")
-    # Tirage pseudo-aléatoire guidé par les contours pour commencer
+    # Pseudo-random seeding guided by contours to start
     initial_seeding = sow(Scatter(points = 2500, seed = 42), img)
     pts = initial_seeding.points
     
-    # Paramètres de l'animation
+    # Animation parameters
     N_frames = 50
     half_N = N_frames ÷ 2
     
@@ -65,20 +65,20 @@ function generate_flow_animation()
     forward_trajectory = [pts]
     curr = pts
     for i in 1:half_N
-        # ease-in / ease-out via une vitesse sinusoïdale
+        # ease-in / ease-out via a sinusoidal velocity
         step_dt = 30.0 * sin(π * (i - 0.5) / half_N)
         curr = advect_points(curr, interp_vx, interp_vy, w, h, step_dt)
         push!(forward_trajectory, curr)
     end
     
-    # On miroir la trajectoire pour créer une boucle parfaite sans discontinuité
-    # ex: 1, 2, ..., 26, 25, ..., 2 (total = 50 frames)
+    # Mirror the trajectory to create a perfect seamless loop
+    # e.g.: 1, 2, ..., 26, 25, ..., 2 (total = 50 frames)
     full_trajectory = vcat(forward_trajectory, forward_trajectory[end-1:-1:2])
     
     println("Rendering \$N_frames frames...")
     
     f = function(t)
-        # Rendu lazy en utilisant la trajectoire précalculée
+        # Lazy rendering using the precomputed trajectory
         return Voronoi(Given(full_trajectory[t]))
     end
     
