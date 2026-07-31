@@ -28,9 +28,9 @@ struct Voronoi{S <: Seeding} <: AbstractEffect
     end
 
     function Voronoi(; points::Integer = 3000,
-                     detail::Real = 1.4,
-                     background::Real = 5.0,
-                     seed::Integer = 20260508)
+            detail::Real = 1.4,
+            background::Real = 5.0,
+            seed::Integer = 20260508)
         return new{Scatter}(Scatter(; points, detail, background, seed))
     end
 end
@@ -64,8 +64,8 @@ function _render(effect::Voronoi, img::AbstractMatrix{RGB{N0f8}})
     @inbounds for i in 1:n
         c = max(counts[i], 1)
         palette[i] = RGB{N0f8}(_u8(sums[i, 1] / c),
-                               _u8(sums[i, 2] / c),
-                               _u8(sums[i, 3] / c))
+            _u8(sums[i, 2] / c),
+            _u8(sums[i, 3] / c))
     end
 
     out = Matrix{RGB{N0f8}}(undef, h, w)

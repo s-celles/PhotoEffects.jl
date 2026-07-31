@@ -14,7 +14,7 @@ drawn uniformly rather than from the edge map, and it is the parameter that
 decides whether the result reads as an even mesh that merely tightens on the
 subject (high) or as fine debris around large empty plates (low). `detail`
 only sharpens the contrast *within* the edge term, and it peaks — see
-[`_sample_points`](@ref).
+`_sample_points`.
 
 This is the dual of [`Voronoi`](@ref) — same seeds, complementary tiling:
 triangles here, polygonal cells there.
@@ -27,10 +27,11 @@ struct LowPoly{S <: Seeding} <: AbstractEffect
     end
 
     function LowPoly(; points::Integer = 4000,
-                     detail::Real = 1.5,
-                     background::Real = 5.0,
-                     seed::Integer = 20260508)
-        points >= 3 || throw(ArgumentError("LowPoly requires at least 3 points"))
+            detail::Real = 1.5,
+            background::Real = 5.0,
+            seed::Integer = 20260508)
+        points >= 3 ||
+            throw(ArgumentError("LowPoly requires at least 3 points"))
         return new{Scatter}(Scatter(; points, detail, background, seed))
     end
 end
@@ -43,7 +44,8 @@ function _render(effect::LowPoly, img::AbstractMatrix{RGB{N0f8}})
     end
     seeds = g.points
     # _border_points returns Tuple{Float64, Float64}
-    border = SVector{2, Float64}[SVector{2, Float64}(p[1], p[2]) for p in _border_points(h, w)]
+    border = SVector{2, Float64}[SVector{2, Float64}(p[1], p[2])
+                                 for p in _border_points(h, w)]
     pts = unique(vcat(seeds, border))
     # triangulate requires Tuple{Float64, Float64} if we don't pass an SVector-capable interface, but SVector works too.
     # To be perfectly safe, let's convert to Tuples as before.
@@ -57,7 +59,8 @@ function _render(effect::LowPoly, img::AbstractMatrix{RGB{N0f8}})
     # but triangulate order might still rely on it internally. Since SEED-6 requires not consuming rng when Given,
     # we should check if it's a Scatter to pass StableRNG, otherwise a dummy or default. 
     # Actually, triangulate requires a rng argument to be deterministic. We can pass StableRNG(42) for Given.
-    rng = effect.seeding isa Scatter ? StableRNG(effect.seeding.seed) : StableRNG(1)
+    rng = effect.seeding isa Scatter ? StableRNG(effect.seeding.seed) :
+          StableRNG(1)
     tri = triangulate(pts_tuple; rng)
     out = Matrix{RGB{N0f8}}(undef, h, w)
     fill!(out, img[1, 1])  # safety net, should a pixel escape the sweep
@@ -100,7 +103,7 @@ exactly on a shared edge is painted by both neighbouring facets — redundant,
 but never skipped: that is what guarantees there are no gaps between facets.
 """
 function _fill_triangle!(out::Matrix{RGB{N0f8}},
-                         img::AbstractMatrix{RGB{N0f8}}, a, b, c)
+        img::AbstractMatrix{RGB{N0f8}}, a, b, c)
     h, w = size(out)
     area = (b[1] - a[1]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[1] - a[1])
     area == 0 && return out

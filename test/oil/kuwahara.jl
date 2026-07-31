@@ -22,8 +22,8 @@ end
     using ImageCore, Random, Statistics
     rng = MersenneTwister(42)
     img = RGB{N0f8}.(clamp01.(rand(rng, 64, 64) .* 0.3 .+ 0.4),
-                     clamp01.(rand(rng, 64, 64) .* 0.3 .+ 0.4),
-                     clamp01.(rand(rng, 64, 64) .* 0.3 .+ 0.4))
+        clamp01.(rand(rng, 64, 64) .* 0.3 .+ 0.4),
+        clamp01.(rand(rng, 64, 64) .* 0.3 .+ 0.4))
     out = apply(Oil(radius = 4), img)
     spread(x) = std(Float64.(channelview(x))[:])
     @test spread(out) < spread(img) / 2

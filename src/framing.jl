@@ -16,8 +16,8 @@ Lanczos kernel rings past that range, which would make the conversion to
 `N0f8` throw.
 """
 function fit_cover(img::AbstractMatrix{<:Colorant},
-                   width::Integer,
-                   height::Integer)
+        width::Integer,
+        height::Integer)
     width > 0 || throw(ArgumentError("width must be > 0, got $width"))
     height > 0 || throw(ArgumentError("height must be > 0, got $height"))
 

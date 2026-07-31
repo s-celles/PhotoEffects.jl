@@ -20,6 +20,7 @@
 # too. Add a line here when a document is meant to be published.
 !README.md
 !CHANGELOG.md
+!docs/src/*.md
 !ROADMAP.md
 !CONTRIBUTING.md
 !CODE_OF_CONDUCT.md
@@ -37,6 +38,7 @@
 !*.json
 !*.sh
 !Makefile
+!justfile
 
 # Re-ignore Julia / docs build artifacts (overrides allow list above).
 Manifest.toml

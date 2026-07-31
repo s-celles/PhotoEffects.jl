@@ -41,7 +41,7 @@ end
     img = rand(MersenneTwister(5), RGB{N0f8}, 48, 48)
     out = apply(Posterize(levels = 4, smoothing = 2), img)
     grid = Set(RGB{N0f8}(r, g, b)
-               for r in 0:(1 / 3):1, g in 0:(1 / 3):1, b in 0:(1 / 3):1)
+    for r in 0:(1 / 3):1, g in 0:(1 / 3):1, b in 0:(1 / 3):1)
     @test issubset(Set(unique(out)), grid)
 end
 

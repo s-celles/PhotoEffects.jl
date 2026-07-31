@@ -43,15 +43,15 @@ Six effects, four families. Each is shown at its default parameters.
 #%% code id=gallery tags=hidecode
 let small = fit_cover(SOURCE, 320, 180)
     shots = [apply(LowPoly(points = 700), small),
-             apply(Voronoi(points = 500), small),
-             apply(Oil(radius = 3), small),
-             apply(Posterize(levels = 9), small),
-             apply(Duotone(), small),
-             apply(Halftone(cell = 6), small)]
+        apply(Voronoi(points = 500), small),
+        apply(Oil(radius = 3), small),
+        apply(Posterize(levels = 9), small),
+        apply(Duotone(), small),
+        apply(Halftone(cell = 6), small)]
     # rowmajor: mosaicview fills columns first by default, which would put the
     # tiles in a different order from the one the caption reads out below.
     mosaicview(shots...; nrow = 3, rowmajor = true, npad = 6,
-               fillvalue = RGB{N0f8}(1, 1, 1))
+        fillvalue = RGB{N0f8}(1, 1, 1))
 end
 
 #%% md id=labels
@@ -211,9 +211,9 @@ so the image is still legible at a fraction of its original brightness.
 let img = fit_cover(SOURCE, 400, 225)
     e = LowPoly(points = 900)
     mosaicview(apply(e, img; appearance = Appearance.LIGHT),
-               apply(e, img; appearance = Appearance.DARK);
-               nrow = 1, rowmajor = true, npad = 6,
-               fillvalue = RGB{N0f8}(1, 1, 1))
+        apply(e, img; appearance = Appearance.DARK);
+        nrow = 1, rowmajor = true, npad = 6,
+        fillvalue = RGB{N0f8}(1, 1, 1))
 end
 
 #%% md id=next

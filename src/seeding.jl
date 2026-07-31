@@ -20,13 +20,13 @@ maximum, and everything above it is clamped to 1. Dividing by the maximum
 would hand the scale to a single pixel — one specular highlight, and the
 gradients that actually draw the subject collapse towards zero. The whole map
 would then sit far below 1, where `edges^detail` shrinks *everything* and the
-uniform background of [`_sample_points`](@ref) takes over: past a certain
+uniform background of `_sample_points` takes over: past a certain
 point, raising `detail` would spread the seeds instead of concentrating them.
 Clamping pins the strong edges at 1 so the exponent can only ever push the
 flat areas down, which is what makes `detail` monotone.
 
 Returns all zeros for a perfectly uniform image — a degenerate case
-[`_sample_points`](@ref) has to tolerate.
+`_sample_points` has to tolerate.
 """
 function _edge_map(img::AbstractMatrix{<:Colorant})
     gray = Float64.(Gray.(img))
@@ -85,10 +85,10 @@ Returns `(x, y)` pairs — column first, matching the geometric conventions of
 `DelaunayTriangulation`, unlike the `(row, column)` indexing of images.
 """
 function _sample_points(edges::AbstractMatrix{<:Real},
-                        n::Integer,
-                        rng::AbstractRNG,
-                        detail::Real;
-                        background::Real = 5.0)
+        n::Integer,
+        rng::AbstractRNG,
+        detail::Real;
+        background::Real = 5.0)
     h, w = size(edges)
     n <= h * w ||
         throw(ArgumentError("n=$n exceeds the $(h * w) available pixels"))
@@ -150,9 +150,9 @@ struct Scatter <: Seeding
     seed::Int
 
     function Scatter(; points::Integer = 3000,
-                     detail::Real = 1.4,
-                     background::Real = 5.0,
-                     seed::Integer = 20260508)
+            detail::Real = 1.4,
+            background::Real = 5.0,
+            seed::Integer = 20260508)
         points >= 1 ||
             throw(ArgumentError("points must be >= 1, got $points"))
         detail >= 0 ||
@@ -184,8 +184,8 @@ function sow(s::Scatter, img::AbstractMatrix{<:Colorant})
     rng = StableRNG(s.seed)
     # _sample_points requires img edges
     seeds = _sample_points(_edge_map(img), s.points, rng, s.detail;
-                           background = s.background)
-    
+        background = s.background)
+
     # We store the points as SVector{2, Float64} in Given for performance (DEC-2)
     # The coordinate system is the same pixel domain [1, w] x [1, h] (DEC-1)
     pts = SVector{2, Float64}[SVector{2, Float64}(p[1], p[2]) for p in seeds]

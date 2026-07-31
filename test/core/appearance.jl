@@ -42,7 +42,7 @@ end
     using ImageCore
     # Pure black lands on the floor, not on black.
     lifted = twilight(fill(RGB{N0f8}(0, 0, 0), 4, 4); value = 0.5, shadow = 0.2)
-    @test Float64(green(lifted[1, 1])) ≈ 0.1 atol = 0.01
+    @test Float64(green(lifted[1, 1]))≈0.1 atol=0.01
     grounded = twilight(fill(RGB{N0f8}(0, 0, 0), 4, 4); shadow = 0.0)
     @test grounded[1, 1] == RGB{N0f8}(0, 0, 0)
 end

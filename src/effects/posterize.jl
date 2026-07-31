@@ -31,7 +31,7 @@ struct Posterize <: AbstractEffect
     smoothing::Int
 
     function Posterize(; levels::Integer = 8, outline::Real = 0.0,
-                       smoothing::Integer = 1)
+            smoothing::Integer = 1)
         levels >= 2 ||
             throw(ArgumentError("levels must be >= 2, got $levels"))
         outline >= 0 ||
@@ -54,8 +54,8 @@ function _render(effect::Posterize, img::AbstractMatrix{RGB{N0f8}})
         @inbounds for i in eachindex(img)
             c = img[i]
             out[i] = RGB{N0f8}(quant(Float64(red(c))),
-                               quant(Float64(green(c))),
-                               quant(Float64(blue(c))))
+                quant(Float64(green(c))),
+                quant(Float64(blue(c))))
         end
     else
         # Median rather than mean: it leaves a flat area untouched and refuses

@@ -22,7 +22,7 @@ end
     # throws. Worst case: a high-contrast checkerboard, which maximises the
     # overshoot.
     img = [RGB{N0f8}(iseven(i + j) ? 1 : 0, iseven(i + j) ? 1 : 0,
-                     iseven(i + j) ? 1 : 0) for i in 1:200, j in 1:200]
+               iseven(i + j) ? 1 : 0) for i in 1:200, j in 1:200]
     out = fit_cover(img, 97, 61)
     @test all(0 .<= Float64.(channelview(out)) .<= 1)
 end

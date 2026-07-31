@@ -79,11 +79,13 @@ end
 Sum over the `k`×`k` square anchored at `(i + top, j + left)` in the integral.
 """
 @inline function _box(ii::Matrix{Int}, i::Int, j::Int,
-                      top::Int, left::Int, k::Int)
+        top::Int, left::Int, k::Int)
     @inbounds return (ii[i + top + k, j + left + k]
                       - ii[i + top, j + left + k]
-                      - ii[i + top + k, j + left]
-                      + ii[i + top, j + left])
+                      -
+                      ii[i + top + k, j + left]
+                      +
+                      ii[i + top, j + left])
 end
 
 function _kuwahara_pass(img::AbstractMatrix{RGB{N0f8}}, r::Int)
@@ -122,8 +124,8 @@ function _kuwahara_pass(img::AbstractMatrix{RGB{N0f8}}, r::Int)
         end
         top, left = offsets[best]
         out[i, j] = RGB{N0f8}(_u8(_box(int_rgb[1], i, j, top, left, k) / n),
-                              _u8(_box(int_rgb[2], i, j, top, left, k) / n),
-                              _u8(_box(int_rgb[3], i, j, top, left, k) / n))
+            _u8(_box(int_rgb[2], i, j, top, left, k) / n),
+            _u8(_box(int_rgb[3], i, j, top, left, k) / n))
     end
     return out
 end

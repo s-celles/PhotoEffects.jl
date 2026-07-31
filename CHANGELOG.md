@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Documenter manual and API reference, keeping interactive KaimonSlate
+  material in `docs/notebooks/`.
+- GitHub Actions workflows for Julia CI, Documenter deployment, KaimonSlate
+  validation, CompatHelper, TagBot, Codecov, JuliaFormatter, and Aqua checks.
 - `Seeding` hierarchy (`Scatter`, `Given`, `sow`) to extract point generation into a first-class citizen.
 - `render` and `frame` to lazily evaluate sequences of frames (`t -> AbstractEffect`) or generate isolated frames.
 - `AbstractEffect` hierarchy and the `apply` entry point, dispatching on the

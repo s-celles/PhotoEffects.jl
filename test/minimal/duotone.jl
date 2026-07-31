@@ -19,14 +19,16 @@ end
     # a duotone read as a single ink pair rather than a tinted photo.
     shadow, highlight = RGB{Float64}(0.0, 0.1, 0.4), RGB{Float64}(1.0, 0.8, 0.2)
     out = apply(Duotone([shadow, highlight]),
-                rand(MersenneTwister(2), RGB{N0f8}, 40, 40))
+        rand(MersenneTwister(2), RGB{N0f8}, 40, 40))
     for c in unique(out)
         t = (red(c) - red(shadow)) / (red(highlight) - red(shadow))
         @test 0 - 1e-2 <= t <= 1 + 1e-2
-        @test isapprox(green(c), green(shadow) + t * (green(highlight) - green(shadow));
-                       atol = 0.02)
-        @test isapprox(blue(c), blue(shadow) + t * (blue(highlight) - blue(shadow));
-                       atol = 0.02)
+        @test isapprox(
+            green(c), green(shadow) + t * (green(highlight) - green(shadow));
+            atol = 0.02)
+        @test isapprox(
+            blue(c), blue(shadow) + t * (blue(highlight) - blue(shadow));
+            atol = 0.02)
     end
 end
 

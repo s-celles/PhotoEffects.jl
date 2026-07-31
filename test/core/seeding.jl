@@ -42,7 +42,8 @@ end
     # seeds must land in the central band rather than spread uniformly.
     e = fill(0.0, 100, 100)
     e[:, 48:52] .= 1.0
-    pts = PhotoEffects._sample_points(e, 300, StableRNG(3), 3.0; background = 0.05)
+    pts = PhotoEffects._sample_points(
+        e, 300, StableRNG(3), 3.0; background = 0.05)
     in_band = count(p -> 48 <= p[1] <= 52, pts)
     @test in_band > 150   # ~5 % of the area, > 50 % of the seeds
 end
@@ -57,8 +58,8 @@ end
     # so asking for more would cap the share at the band's own area and measure
     # that ceiling instead of the concentration.
     band(bg) = count(p -> 48 <= p[1] <= 52,
-                     PhotoEffects._sample_points(e, 400, StableRNG(3), 3.0;
-                                                 background = bg)) / 400
+        PhotoEffects._sample_points(e, 400, StableRNG(3), 3.0;
+            background = bg)) / 400
     shares = [band(bg) for bg in (0.05, 0.5, 5.0, 50.0)]
     @test issorted(shares; rev = true)      # more floor, less concentration
     @test shares[1] > 0.5                   # a low floor really concentrates
@@ -86,8 +87,9 @@ end
     # share falls again. Averaged over seeds: single draws are too noisy to
     # separate the plateau from the decline.
     share(d, bg) = mean([count(p -> p[1] in BAND,
-                               PhotoEffects._sample_points(e, 2000, StableRNG(s), d;
-                                                           background = bg)) / 2000
+                             PhotoEffects._sample_points(
+                                 e, 2000, StableRNG(s), d;
+                                 background = bg)) / 2000
                          for s in 1:5])
     rising = [share(d, 0.2) for d in (0.5, 1.0, 2.0)]
     @test issorted(rising)

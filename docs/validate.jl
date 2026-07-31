@@ -43,5 +43,6 @@ notebooks = sort(filter(endswith(".jl"), readdir(NOTEBOOKS; join = true)))
 isempty(notebooks) && error("no notebook found in $NOTEBOOKS")
 
 total = sum(check, notebooks)
-println(total == 0 ? "\nall notebooks evaluate cleanly" : "\n$total cell(s) failed")
+println(total == 0 ? "\nall notebooks evaluate cleanly" :
+        "\n$total cell(s) failed")
 exit(total)

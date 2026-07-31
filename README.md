@@ -1,5 +1,9 @@
 # PhotoEffects.jl
 
+[![CI](https://github.com/s-celles/PhotoEffects.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/s-celles/PhotoEffects.jl/actions/workflows/CI.yml)
+[![Documentation](https://github.com/s-celles/PhotoEffects.jl/actions/workflows/Documentation.yml/badge.svg)](https://s-celles.github.io/PhotoEffects.jl/)
+[![codecov](https://codecov.io/gh/s-celles/PhotoEffects.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/s-celles/PhotoEffects.jl)
+
 Turn a photograph into a stylised image — flat facets, polygonal cells,
 painterly impasto — in a light or a twilight variant.
 

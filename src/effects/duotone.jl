@@ -27,7 +27,7 @@ end
 Default ramp: deep indigo shadows to warm sand highlights.
 """
 Duotone() = Duotone([RGB{Float64}(0.06, 0.09, 0.24),
-                     RGB{Float64}(0.98, 0.91, 0.76)])
+    RGB{Float64}(0.98, 0.91, 0.76)])
 
 function _render(effect::Duotone, img::AbstractMatrix{RGB{N0f8}})
     stops = effect.stops
@@ -42,8 +42,8 @@ function _render(effect::Duotone, img::AbstractMatrix{RGB{N0f8}})
         t = pos - k
         a, b = stops[k + 1], stops[k + 2]
         out[i] = RGB{N0f8}(clamp01(RGB(red(a) + t * (red(b) - red(a)),
-                                       green(a) + t * (green(b) - green(a)),
-                                       blue(a) + t * (blue(b) - blue(a)))))
+            green(a) + t * (green(b) - green(a)),
+            blue(a) + t * (blue(b) - blue(a)))))
     end
     return out
 end

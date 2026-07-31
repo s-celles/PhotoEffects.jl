@@ -1,8 +1,10 @@
 # Documentation
 
-The documentation is a [KaimonSlate](https://github.com/kahliburke/KaimonSlate.jl)
-notebook: a reactive notebook whose cells recompute when you move a control,
-stored as a plain `.jl` file so git reads the same source you edit.
+The published manual is built with Documenter from `docs/src/`. Interactive
+exploration is provided separately by a
+[KaimonSlate](https://github.com/kahliburke/KaimonSlate.jl) notebook: a
+reactive notebook whose cells recompute when you move a control, stored as a
+plain `.jl` file so git reads the same source you edit.
 
 That choice buys the one thing a static site cannot give — you can point it at
 **your own photograph** and tune every effect live, without the package ever
@@ -10,6 +12,8 @@ having to run in a browser.
 
 | File | Role |
 |---|---|
+| `make.jl` | Build and deploy the Documenter site and its LLM endpoints. |
+| `src/` | Published manual and API reference. |
 | `notebooks/index.jl` | The gallery: every effect, with live controls. |
 | `validate.jl` | Headless evaluation of every notebook, for CI. |
 | `Project.toml` | The notebook environment. |
@@ -56,8 +60,10 @@ downstream of a control recompute.
 
 ## Publishing
 
-KaimonSlate has a built-in publishing manager with a GitHub Pages target, and
-exports a self-contained HTML file.
+Documenter deploys the manual to GitHub Pages. The build also publishes
+`llms.txt` and `llms-full.txt` at the root of the generated site.
+
+KaimonSlate can independently export a self-contained HTML file.
 
 One caveat worth knowing before relying on it: in a **static export**, `@bind`
 widgets become a *frozen parameters strip*. The published page shows the
@@ -94,9 +100,10 @@ changes, since nothing else compiles it.
 
 ## Status
 
-Every notebook evaluates cleanly (24 cells, 0 failures). What remains
-unverified is the **publishing** chain — export to a static site and deploy to
-Pages have not been exercised, and there is no CI wired up yet.
+Every notebook evaluates cleanly (24 cells, 0 failures). CI builds and deploys
+the Documenter manual, then validates the notebook independently. Static
+KaimonSlate export remains optional because the published manual already
+covers the package API and guide.
 
 See [`upstream-bugs.md`](../upstream-bugs.md) for the world-age warnings
 KaimonSlate emits under Julia 1.12. They are harmless today but Julia states

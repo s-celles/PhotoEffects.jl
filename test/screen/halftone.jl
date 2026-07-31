@@ -52,7 +52,7 @@ end
 @testitem "Halftone: gamma opens the highlights without touching the ends" begin
     using ImageCore, Statistics
     cov(g, v) = mean(apply(Halftone(cell = 8, gamma = g),
-                           fill(RGB{N0f8}(v, v, v), 96, 96)) .==
+        fill(RGB{N0f8}(v, v, v), 96, 96)) .==
                      RGB{N0f8}(0, 0, 0))
     # A midtone screens lighter as gamma rises...
     @test cov(2.2, 0.5) < cov(1.0, 0.5)
@@ -65,7 +65,7 @@ end
     using ImageCore, Random
     ink, paper = RGB{N0f8}(0.1, 0.0, 0.5), RGB{N0f8}(0.98, 0.96, 0.9)
     out = apply(Halftone(cell = 6, ink = ink, paper = paper),
-                rand(MersenneTwister(3), RGB{N0f8}, 64, 64))
+        rand(MersenneTwister(3), RGB{N0f8}, 64, 64))
     @test Set(unique(out)) ⊆ Set([ink, paper])
 end
 

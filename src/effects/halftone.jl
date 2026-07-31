@@ -54,15 +54,15 @@ struct Halftone <: AbstractEffect
     paper::RGB{N0f8}
 
     function Halftone(; cell::Integer = 8,
-                      angle::Real = π / 4,
-                      shape::HalftoneShape.T = HalftoneShape.DOT,
-                      gamma::Real = 1.8,
-                      ink::Colorant = RGB{N0f8}(0, 0, 0),
-                      paper::Colorant = RGB{N0f8}(1, 1, 1))
+            angle::Real = π / 4,
+            shape::HalftoneShape.T = HalftoneShape.DOT,
+            gamma::Real = 1.8,
+            ink::Colorant = RGB{N0f8}(0, 0, 0),
+            paper::Colorant = RGB{N0f8}(1, 1, 1))
         cell >= 2 || throw(ArgumentError("cell must be >= 2, got $cell"))
         gamma > 0 || throw(ArgumentError("gamma must be > 0, got $gamma"))
         return new(Int(cell), Float64(angle), shape, Float64(gamma),
-                   RGB{N0f8}(RGB(ink)), RGB{N0f8}(RGB(paper)))
+            RGB{N0f8}(RGB(ink)), RGB{N0f8}(RGB(paper)))
     end
 end
 
@@ -80,13 +80,15 @@ function _render(effect::Halftone, img::AbstractMatrix{RGB{N0f8}})
     rmax = p / sqrt(2)
 
     # Lattice cell of a pixel, in lattice space.
-    cell_of(x, y) = (floor(Int, (ca * x + sa * y) / p),
-                     floor(Int, (-sa * x + ca * y) / p))
+    function cell_of(x, y)
+        (floor(Int, (ca * x + sa * y) / p),
+            floor(Int, (-sa * x + ca * y) / p))
+    end
 
     # One pass to integrate the luminance each cell covers, so that the dot
     # stands for the whole area rather than for one pixel of it.
-    sums = Dict{Tuple{Int,Int},Float64}()
-    counts = Dict{Tuple{Int,Int},Int}()
+    sums = Dict{Tuple{Int, Int}, Float64}()
+    counts = Dict{Tuple{Int, Int}, Int}()
     @inbounds for y in 1:h, x in 1:w
         k = cell_of(x, y)
         sums[k] = get(sums, k, 0.0) + lum[y, x]

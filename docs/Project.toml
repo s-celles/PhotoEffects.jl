@@ -1,4 +1,5 @@
 [deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
 ImageIO = "82e4d734-157c-48bb-816b-45c225c6df19"
@@ -6,4 +7,11 @@ ImageShow = "4e3cecfd-b093-5904-9786-8bbb286a6a31"
 KaimonSlate = "f7b954f5-0334-4562-ac21-b005218ce1da"
 MosaicViews = "e94cdb99-869f-56ef-bcf0-1ae2bcbe0389"
 PhotoEffects = "5cce3c96-f22c-49dd-8193-0798bebb7031"
+SlateExtensionsBase = "bc31d39e-4442-48fa-b9ae-1bd99fed63f7"
 TestImages = "5e47fb64-e119-507b-a336-dd2b206d9990"
+
+[sources]
+PhotoEffects = {path = ".."}
+
+[compat]
+Documenter = "1"

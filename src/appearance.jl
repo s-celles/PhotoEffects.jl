@@ -2,7 +2,7 @@
 Target appearance of a render: light background or dark background.
 
 Dark is not a separate effect — it is the same image taken to twilight by
-[`twilight`](@ref), so that both variants of a wallpaper share the exact same
+[`PhotoEffects.twilight`](@ref), so that both variants of a wallpaper share the exact same
 geometry.
 """
 module Appearance
@@ -29,10 +29,10 @@ The defaults are shared by every effect, so that their dark variants stay
 consistent with one another.
 """
 function twilight(img::AbstractMatrix{<:Colorant};
-                  value::Real = 0.30,
-                  shadow::Real = 0.10,
-                  gamma::Real = 1.2,
-                  saturation::Real = 1.25)
+        value::Real = 0.30,
+        shadow::Real = 0.10,
+        gamma::Real = 1.2,
+        saturation::Real = 1.25)
     value > 0 || throw(ArgumentError("value must be > 0, got $value"))
     gamma > 0 || throw(ArgumentError("gamma must be > 0, got $gamma"))
     0 <= shadow < 1 ||

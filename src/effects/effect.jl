@@ -10,12 +10,12 @@ written once for the whole catalogue.
 """
 abstract type AbstractEffect end
 
-function Base.:(==)(a::T, b::T) where T <: AbstractEffect
+function Base.:(==)(a::T, b::T) where {T <: AbstractEffect}
     all(getfield(a, f) == getfield(b, f) for f in fieldnames(T))
 end
 
-function Base.hash(a::T, h::UInt) where T <: AbstractEffect
-    foldr(hash, (getfield(a, f) for f in fieldnames(T)), init=hash(T, h))
+function Base.hash(a::T, h::UInt) where {T <: AbstractEffect}
+    foldr(hash, (getfield(a, f) for f in fieldnames(T)), init = hash(T, h))
 end
 
 """
@@ -23,11 +23,11 @@ Apply `effect` to `img` and return the transformed image.
 
 `appearance` selects the variant: [`Appearance.LIGHT`](@ref Appearance)
 renders the effect as is, [`Appearance.DARK`](@ref Appearance) follows it with
-[`twilight`](@ref). Geometry is identical either way — only colour changes.
+[`PhotoEffects.twilight`](@ref). Geometry is identical either way — only colour changes.
 """
 function apply(effect::AbstractEffect,
-               img::AbstractMatrix{<:Colorant};
-               appearance::Appearance.T = Appearance.LIGHT)
+        img::AbstractMatrix{<:Colorant};
+        appearance::Appearance.T = Appearance.LIGHT)
     out = _render(effect, RGB{N0f8}.(img))
     return appearance == Appearance.DARK ? twilight(out) : out
 end
@@ -77,7 +77,7 @@ end
 Base.length(r::RenderSequence) = length(r.times)
 Base.eltype(::Type{<:RenderSequence}) = Matrix{RGB{N0f8}}
 
-function Base.iterate(r::RenderSequence, state=nothing)
+function Base.iterate(r::RenderSequence, state = nothing)
     it = state === nothing ? iterate(r.times) : iterate(r.times, state)
     it === nothing && return nothing
     t, next_state = it
