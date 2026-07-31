@@ -15,6 +15,7 @@ out = apply(Oil(radius = 9, passes = 2), fit_cover(img, 1920, 1080))
 """
 module PhotoEffects
 
+import Colors
 using DelaunayTriangulation: triangulate, each_solid_triangle,
                              triangle_vertices, get_point
 using DocStringExtensions
@@ -35,6 +36,7 @@ include("appearance.jl")
 include("framing.jl")
 include("seeding.jl")
 include("effects/effect.jl")
+include("effects/pipeline.jl")
 include("effects/oil.jl")
 include("effects/lowpoly.jl")
 include("effects/voronoi.jl")
@@ -42,7 +44,8 @@ include("effects/posterize.jl")
 include("effects/duotone.jl")
 include("effects/halftone.jl")
 
-export AbstractEffect, Duotone, Halftone, LowPoly, Oil, Posterize, Voronoi
+export AbstractEffect, Duotone, Halftone, LowPoly, Oil, Pipeline, Posterize
+export Voronoi, VoronoiLloyd, VoronoiStained
 export apply, fit_cover, twilight
 export Appearance, HalftoneShape
 export Seeding, Scatter, Given, sow, render, frame
@@ -56,6 +59,9 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(Posterize(levels = 4), img)
         apply(Duotone(), img)
         apply(Halftone(cell = 4), img)
+        apply(Pipeline(Posterize(levels = 4), Duotone()), img)
+        apply(VoronoiStained(points = 20), img)
+        apply(VoronoiLloyd(points = 20, iterations = 1), img)
         fit_cover(img, 16, 16)
         twilight(img)
     end

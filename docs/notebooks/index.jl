@@ -37,13 +37,15 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Six effects, four families. Each is shown at its default parameters.
+Eight effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
 let small = fit_cover(SOURCE, 320, 180)
     shots = [apply(LowPoly(points = 700), small),
         apply(Voronoi(points = 500), small),
+        apply(VoronoiStained(points = 500, joint = 1), small),
+        apply(VoronoiLloyd(points = 500, iterations = 2), small),
         apply(Oil(radius = 3), small),
         apply(Posterize(levels = 9), small),
         apply(Duotone(), small),
@@ -56,8 +58,8 @@ end
 
 #%% md id=labels
 @md"""
-Reading order: **LowPoly**, **Voronoi** · **Oil**, **Posterize** ·
-**Duotone**, **Halftone**.
+Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
+**VoronoiLloyd** · **Oil**, **Posterize** · **Duotone**, **Halftone**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -88,6 +90,20 @@ let img = fit_cover(SOURCE, 640, 360)
     e = dual == "LowPoly" ? LowPoly(; points, detail, background) :
         Voronoi(; points, detail, background)
     apply(e, img)
+end
+
+#%% md id=composition_md
+@md"""
+## Composition and colour models
+
+`Pipeline` applies stages from left to right. Colour-space conversion happens
+once around the complete pipeline. Opaque and transparent inputs keep their
+colour model and channel precision; alpha is copied unchanged.
+"""
+
+#%% code id=composition
+let img = fit_cover(SOURCE, 640, 360)
+    apply(Pipeline(Oil(radius = 2), Posterize(levels = 7), Duotone()), img)
 end
 
 #%% md id=oil_md
@@ -221,7 +237,7 @@ end
 ## Next
 
 The [roadmap](https://github.com/s-celles/PhotoEffects.jl/blob/main/ROADMAP.md)
-lists the eighteen effects still to come, and the conventions a new one must
+lists the sixteen effects still to come, and the conventions a new one must
 follow.
 """
 

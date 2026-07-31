@@ -4,8 +4,11 @@
 
 ```@docs
 AbstractEffect
+Pipeline
 LowPoly
 Voronoi
+VoronoiStained
+VoronoiLloyd
 Oil
 Posterize
 Duotone

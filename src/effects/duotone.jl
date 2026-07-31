@@ -23,6 +23,8 @@ struct Duotone <: AbstractEffect
     end
 end
 
+_intrinsically_colored(::Duotone) = true
+
 """
 Default ramp: deep indigo shadows to warm sand highlights.
 """

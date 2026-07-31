@@ -66,6 +66,8 @@ struct Halftone <: AbstractEffect
     end
 end
 
+_intrinsically_colored(::Halftone) = true
+
 function _render(effect::Halftone, img::AbstractMatrix{RGB{N0f8}})
     h, w = size(img)
     p = Float64(effect.cell)

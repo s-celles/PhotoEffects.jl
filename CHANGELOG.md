@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Colour-model-aware output for Gray, HSV, Lab, floating-point and transparent
+  images, with unchanged alpha and an explicit `output_type` option.
+- `Pipeline` for ordered composition of effects.
+- `VoronoiStained` with configurable leading width and colour.
+- `VoronoiLloyd` with deterministic raster Lloyd relaxation.
 - Documenter manual and API reference, keeping interactive KaimonSlate
   material in `docs/notebooks/`.
 - GitHub Actions workflows for Julia CI, Documenter deployment, KaimonSlate

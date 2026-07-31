@@ -52,12 +52,30 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 |---|---|---|
 | `LowPoly` | tessellation | Delaunay triangulation, flat facets |
 | `Voronoi` | tessellation | polygonal cells, mean colour |
+| `VoronoiStained` | tessellation | polygonal cells separated by leading |
+| `VoronoiLloyd` | tessellation | relaxed cells of increasingly even area |
 | `Oil` | painting | Kuwahara filter |
 | `Posterize` | painting | channels snapped to N levels, optional inked edges |
 | `Duotone` | minimal | luminance mapped onto a colour ramp |
 | `Halftone` | screen | tone as dot area on a tilted lattice |
+| `Pipeline` | composition | effects applied from left to right |
 
 See [ROADMAP.md](ROADMAP.md) for the effects still to come.
+
+## Colour management
+
+Effects use a predictable RGB working representation internally, then return
+to the input colour model and precision. `Gray`, `HSV`, `Lab`, floating-point
+RGB and transparent images are accepted. Alpha values are carried unchanged.
+
+Effects with an intrinsic palette, such as `Duotone` and `Halftone`, keep a
+colour output when given a grayscale input. Select another output model
+explicitly when needed:
+
+```julia
+using Colors
+lab = apply(Oil(), img; output_type = Lab{Float32})
+```
 
 ### `Oil` — oil painting (Kuwahara)
 

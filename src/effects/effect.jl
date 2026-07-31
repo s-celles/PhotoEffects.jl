@@ -10,6 +10,8 @@ written once for the whole catalogue.
 """
 abstract type AbstractEffect end
 
+_intrinsically_colored(::AbstractEffect) = false
+
 function Base.:(==)(a::T, b::T) where {T <: AbstractEffect}
     all(getfield(a, f) == getfield(b, f) for f in fieldnames(T))
 end
@@ -24,12 +26,47 @@ Apply `effect` to `img` and return the transformed image.
 `appearance` selects the variant: [`Appearance.LIGHT`](@ref Appearance)
 renders the effect as is, [`Appearance.DARK`](@ref Appearance) follows it with
 [`PhotoEffects.twilight`](@ref). Geometry is identical either way — only colour changes.
+
+By default the result returns to the input colour model and channel precision,
+and transparent inputs keep their original alpha values. Effects with an
+intrinsic palette stay coloured when the input is grayscale. Pass
+`output_type`, for example `Lab{Float32}`, to select another representation.
 """
 function apply(effect::AbstractEffect,
         img::AbstractMatrix{<:Colorant};
-        appearance::Appearance.T = Appearance.LIGHT)
+        appearance::Appearance.T = Appearance.LIGHT,
+        output_type::Union{Type, Nothing} = nothing)
     out = _render(effect, RGB{N0f8}.(img))
-    return appearance == Appearance.DARK ? twilight(out) : out
+    appearance == Appearance.DARK && (out = twilight(out))
+    target = isnothing(output_type) ?
+             _default_output_type(effect, eltype(img)) : output_type
+    target <: Colorant ||
+        throw(ArgumentError("output_type must be a Colorant type"))
+    return _convert_output(target, out, img)
+end
+
+function _default_output_type(
+        effect::AbstractEffect, ::Type{T}) where {T <: Color}
+    return _intrinsically_colored(effect) && T <: Gray ? RGB{N0f8} : T
+end
+
+function _default_output_type(
+        effect::AbstractEffect, ::Type{T}) where {T <: TransparentColor}
+    opaque = color_type(T)
+    if _intrinsically_colored(effect) && opaque <: Gray
+        return coloralpha(RGB{N0f8})
+    end
+    return T
+end
+
+function _convert_output(::Type{T}, out, _) where {T <: Color}
+    return T.(out)
+end
+
+function _convert_output(::Type{T}, out, img) where {T <: TransparentColor}
+    return map(out, img) do pixel, source
+        convert(T, pixel, alpha(source))
+    end
 end
 
 """

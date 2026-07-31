@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**6 of 24 done**, across four of the seven families.
+**8 of 24 done**, across four of the seven families.
 
 ---
 
@@ -21,16 +21,15 @@ Flat triangular facets, seeds dense along edges. Faceted-crystal look.
 Polygonal "pebble / stained glass" cells, the dual of Delaunay. Rounder and
 more organic than low-poly.
 
-### 🟡 `VoronoiStained` — Voronoi with leading
+### ✅ `VoronoiStained` — Voronoi with leading
 Voronoi plus thin **dark joints** between cells. Reads as stained glass or
-Roman mosaic — more graphic, more legible. The cell polygons come from
-`DelaunayTriangulation.voronoi`; what remains is stroking them, and clipping
-them to the image rectangle.
+Roman mosaic — more graphic, more legible. Joints are extracted from the
+nearest-seed label boundaries, so coverage stays exact at the image border.
 
-### 🟡 `VoronoiLloyd` — centroidal Voronoi
+### ✅ `VoronoiLloyd` — centroidal Voronoi
 A few Lloyd iterations give cells of **even size**, a calmer and more regular
-"scales" look. `DelaunayTriangulation.centroidal_smooth` provides the
-primitive.
+"scales" look. Centroids are measured from the same raster cells used by the
+renderer, keeping relaxation and final coverage consistent.
 
 ### ⚪ `HexMosaic` — hexagonal mosaic
 Regular hexagon grid, each cell in its mean colour. Honeycomb aesthetic, very
@@ -141,6 +140,9 @@ per row, and Julia suits it well.
 
 ## 6. Composable post-processing
 
+`Pipeline` now composes any number of effects from left to right. The
+individual post-processing stages remain planned:
+
 To layer over any effect above:
 
 - **Grain / paper texture** — silver-halide or watercolour-paper matter.
@@ -148,8 +150,8 @@ To layer over any effect above:
 - **Tilt-shift** — progressive blur top and bottom, miniature effect.
 - **Border / mat** — framed-print look.
 
-These argue for a `Pipeline` or `Chain` effect combining several
-`AbstractEffect`s, rather than a flag on each one.
+These are implemented as independent `AbstractEffect`s so they can be
+combined through `Pipeline`, rather than as flags on every artistic effect.
 
 ---
 

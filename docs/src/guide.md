@@ -6,6 +6,8 @@
 |---|---|
 | `LowPoly` | Delaunay triangles filled with sampled colours |
 | `Voronoi` | Polygonal cells painted from area averages |
+| `VoronoiStained` | Voronoi cells separated by coloured joints |
+| `VoronoiLloyd` | Relaxed Voronoi cells with more even areas |
 | `Oil` | Edge-preserving Kuwahara painting |
 | `Posterize` | Quantized colour bands with optional outlines |
 | `Duotone` | Luminance mapped onto a colour ramp |
@@ -14,6 +16,32 @@
 ```julia
 effect = LowPoly(points = 3_000, seed = 42)
 result = apply(effect, img)
+```
+
+## Composing effects
+
+`Pipeline` applies effects from left to right while performing appearance and
+colour-space conversion only once:
+
+```julia
+effect = Pipeline(Oil(radius = 3), Posterize(levels = 7), Duotone())
+result = apply(effect, img)
+```
+
+## Colour models and transparency
+
+The renderer uses RGB internally and converts the result back to the input
+model and channel precision. This preserves `Gray`, floating-point RGB, HSV,
+Lab and transparent colourants. Alpha values are copied unchanged from the
+source image.
+
+Effects with their own palette, including `Duotone`, `Halftone` and
+`VoronoiStained`, produce colour when their input is grayscale. Use
+`output_type` to request another representation explicitly:
+
+```julia
+using Colors
+perceptual = apply(Oil(), img; output_type = Lab{Float32})
 ```
 
 ## Reusing point clouds
