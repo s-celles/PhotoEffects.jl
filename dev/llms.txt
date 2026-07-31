@@ -1,0 +1,9 @@
+# PhotoEffects.jl
+
+> Turn photographs into LowPoly, Voronoi, oil-painted, posterized, duotone,
+> or halftone images with reusable seeding and appearance controls.
+
+- [Documentation](./)
+- [Guide](./guide/)
+- [Interactive notebooks](./notebooks/)
+- [API reference](./reference/)
