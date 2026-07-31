@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Relaxed the `Random` standard-library compatibility bound so the declared
+  Julia 1.10 minimum can be resolved.
 - `Voronoi` and `LowPoly` now carry a `seeding::Seeding` field instead of scattering parameters. The old keyword constructors are preserved for backward compatibility (they implicitly build a `Scatter` strategy), causing no breaking change.
 - The edge map now scales gradient magnitudes by their 95th percentile,
   clamping above it, instead of dividing by the maximum. A single extreme
