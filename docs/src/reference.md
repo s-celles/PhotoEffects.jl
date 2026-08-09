@@ -19,6 +19,7 @@ Brushes
 Pointillism
 LineArt
 Blobs
+TspArt
 Grain
 Vignette
 Bloom

@@ -18,6 +18,7 @@
 | `Pointillism` | Edge-aware sampled-colour dots on paper |
 | `LineArt` | Normalized Sobel edges on a plain background |
 | `Blobs` | Dominant-palette gradient with soft colour masses |
+| `TspArt` | One closed route through darkness-weighted stipples |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
 | `Contour` | Topographic lines at discrete luminance bands |
@@ -113,6 +114,14 @@ palette, retaining mood rather than shapes:
 
 ```julia
 abstracted = apply(Blobs(colors=4, blobs=7, radius=120, seed=42), img)
+```
+
+`TspArt` samples stipples from shadow, connects every one exactly once, and
+improves the closed nearest-neighbour route with 2-opt passes:
+
+```julia
+continuous = apply(TspArt(points=600, width=1,
+    optimize=1, seed=42), img)
 ```
 
 ## Composing effects

@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**20 of 24 done**, across four of the seven families.
+**21 of 24 done**, across four of the seven families.
 
 ---
 
@@ -111,7 +111,7 @@ blobs. Abstract and calm; keeps the mood, not the shapes.
 ### ✅ `LineArt` — edge detection only
 Contours alone on a plain background. `ImageEdgeDetection.jl` provides Canny.
 
-### 🔬 `TspArt` — single continuous line
+### ✅ `TspArt` — single continuous line
 One unbroken stroke (a travelling-salesman path over stippled points)
 reconstitutes the image. Hypnotic. Hard.
 

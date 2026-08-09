@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `TspArt` single closed-line rendering over darkness-weighted stipples, with
+  deterministic nearest-neighbour routing and configurable 2-opt refinement.
 - `Ascii` with a built-in 5×7 monospace bitmap font, a strictly increasing
   eight-glyph density ramp, integer scaling, and clipped partial edge cells.
 - Dimension-preserving composable `Border` for an inward print mat, including

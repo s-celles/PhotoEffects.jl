@@ -59,6 +59,7 @@ include("effects/focus.jl")
 include("effects/tiltshift.jl")
 include("effects/border.jl")
 include("effects/ascii.jl")
+include("effects/tspart.jl")
 
 export AbstractEffect, Ascii, Blobs, Bloom, Border, Brushes, Contour, Cubist,
        Dither,
@@ -69,7 +70,7 @@ export AbstractEffect, Ascii, Blobs, Bloom, Border, Brushes, Contour, Cubist,
        LineArt, LowPoly,
        Oil,
        Pipeline, PixelMosaic, Pointillism, Posterize, TiltShift, Vignette,
-       Watercolour
+       TspArt, Watercolour
 export Voronoi, VoronoiLloyd, VoronoiStained
 export apply, fit_cover, twilight
 export Appearance, DitherMethod, HalftoneShape
@@ -101,6 +102,7 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(TiltShift(radius = 2), img)
         apply(Border(width = 2), img)
         apply(Ascii(scale = 1), img)
+        apply(TspArt(points = 20, optimize = 0), img)
         apply(Pipeline(Posterize(levels = 4), Duotone()), img)
         apply(VoronoiStained(points = 20), img)
         apply(VoronoiLloyd(points = 20, iterations = 1), img)

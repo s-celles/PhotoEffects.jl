@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Twenty effects, four families. Each is shown at representative parameters.
+Twenty-one effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -57,6 +57,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Duotone(), small),
         apply(LineArt(), small),
         apply(Blobs(colors = 4, blobs = 7, radius = 80), small),
+        apply(TspArt(points = 350, optimize = 1), small),
         apply(Halftone(cell = 6), small),
         apply(Contour(levels = 7), small),
         apply(Hatching(spacing = 6), small),
@@ -72,7 +73,8 @@ end
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
-**Watercolour**, **Brushes**, **Pointillism**, **Duotone**, **LineArt**, **Blobs** · **Halftone**, **Contour**,
+**Watercolour**, **Brushes**, **Pointillism**, **Duotone**, **LineArt**, **Blobs**,
+**TspArt** · **Halftone**, **Contour**,
 **Hatching**, **Ascii**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
@@ -422,6 +424,21 @@ the photograph's atmosphere rather than its objects.
 #%% code id=blobs
 apply(Blobs(colors = 4, blobs = blob_count,
         radius = blob_radius, seed = 42),
+    fit_cover(SOURCE, 640, 360))
+
+#%% md id=tspart_md
+@md"""
+## TSP art — one line, every stipple
+
+Darkness draws the stipples. A deterministic travelling-salesman heuristic
+then visits each one exactly once and closes the route into a single stroke.
+"""
+
+#%% code id=tspart_control
+@bind tsp_points Slider(100:100:900; default = 500)
+
+#%% code id=tspart
+apply(TspArt(points = tsp_points, optimize = 1, seed = 42),
     fit_cover(SOURCE, 640, 360))
 
 #%% md id=dark_md
