@@ -54,6 +54,8 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Voronoi` | tessellation | polygonal cells, mean colour |
 | `VoronoiStained` | tessellation | polygonal cells separated by leading |
 | `VoronoiLloyd` | tessellation | relaxed cells of increasingly even area |
+| `HexMosaic` | tessellation | regular honeycomb cells in their mean colour |
+| `PixelMosaic` | tessellation | square mean-colour blocks with optional joints |
 | `Oil` | painting | Kuwahara filter |
 | `Posterize` | painting | channels snapped to N levels, optional inked edges |
 | `Watercolour` | painting | soft washes, granulation and paper lightening |
@@ -148,6 +150,13 @@ when the resulting PNGs are version-controlled.
 > require. Explicit geometry (`DelaunayTriangulation.voronoi`,
 > `centroidal_smooth`) will become necessary for stained-glass leading and for
 > Lloyd relaxation.
+
+### `HexMosaic` and `PixelMosaic` — regular tilings
+
+`HexMosaic` assigns pixels to a triangular lattice of centres, whose nearest
+regions are regular hexagons. `PixelMosaic` divides the raster into clipped
+square blocks and can add a coloured joint between tiles. Both paint every
+cell with the exact mean colour below it and cover partial cells at borders.
 
 ### `Posterize` — poster / cel-shading
 

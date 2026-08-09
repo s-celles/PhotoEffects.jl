@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Ten effects, four families. Each is shown at representative parameters.
+Twelve effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -46,6 +46,8 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Voronoi(points = 500), small),
         apply(VoronoiStained(points = 500, joint = 1), small),
         apply(VoronoiLloyd(points = 500, iterations = 2), small),
+        apply(HexMosaic(cell = 8), small),
+        apply(PixelMosaic(block = 10, joint = 1), small),
         apply(Oil(radius = 3), small),
         apply(Posterize(levels = 9), small),
         apply(Watercolour(radius = 3), small),
@@ -61,8 +63,8 @@ end
 #%% md id=labels
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
-**VoronoiLloyd** · **Oil**, **Posterize** · **Watercolour**, **Duotone** ·
-**Halftone**, **Dither**.
+**VoronoiLloyd** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
+**Watercolour**, **Duotone** · **Halftone**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -93,6 +95,26 @@ let img = fit_cover(SOURCE, 640, 360)
     e = dual == "LowPoly" ? LowPoly(; points, detail, background) :
         Voronoi(; points, detail, background)
     apply(e, img)
+end
+
+#%% md id=mosaic_md
+@md"""
+## Regular mosaics — honeycomb or square tiles
+
+Both effects use the exact mean colour beneath every cell. Hexagons come from
+nearest membership on a triangular lattice; square tiles can expose a light
+joint for a ceramic look.
+"""
+
+#%% code id=mosaic_controls
+@bind mosaic_cell Slider(4:2:24; default = 10)
+@bind mosaic_kind Select(["Hexagonal", "Square"])
+@bind mosaic_joint Toggle(; label = "Tile joints")
+
+#%% code id=mosaic
+let effect = mosaic_kind == "Hexagonal" ? HexMosaic(cell = mosaic_cell) :
+             PixelMosaic(block = mosaic_cell, joint = mosaic_joint ? 1 : 0)
+    apply(effect, fit_cover(SOURCE, 640, 360))
 end
 
 #%% md id=composition_md
@@ -274,7 +296,7 @@ end
 ## Next
 
 The [roadmap](https://github.com/s-celles/PhotoEffects.jl/blob/main/ROADMAP.md)
-lists the fourteen effects still to come, and the conventions a new one must
+lists the twelve effects still to come, and the conventions a new one must
 follow.
 """
 

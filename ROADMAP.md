@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**10 of 24 done**, across four of the seven families.
+**12 of 24 done**, across four of the seven families.
 
 ---
 
@@ -31,15 +31,15 @@ A few Lloyd iterations give cells of **even size**, a calmer and more regular
 "scales" look. Centroids are measured from the same raster cells used by the
 renderer, keeping relaxation and final coverage consistent.
 
-### 🟡 `HexMosaic` — hexagonal mosaic
+### ✅ `HexMosaic` — hexagonal mosaic
 Regular hexagon grid, each cell in its mean colour. Honeycomb aesthetic, very
 clean and retro-tech. Easy: fixed lattice plus per-cell mean.
 
-### ⚪ `PixelMosaic` — square mosaic
+### ✅ `PixelMosaic` — square mosaic
 Square blocks in mean colour. Large blocks give retro pixel art, small ones a
 pointillist impression. Option: light joints between tiles for a tiled look.
 
-### ⚪ `Cubist` — random convex polygons
+### 🟡 `Cubist` — random convex polygons
 Larger, more angular irregular polygons with slightly shifted colours.
 Cubist / abstract stained glass. `ImageSegmentation.jl` can seed the regions.
 

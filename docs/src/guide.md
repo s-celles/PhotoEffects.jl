@@ -8,6 +8,8 @@
 | `Voronoi` | Polygonal cells painted from area averages |
 | `VoronoiStained` | Voronoi cells separated by coloured joints |
 | `VoronoiLloyd` | Relaxed Voronoi cells with more even areas |
+| `HexMosaic` | Regular honeycomb cells filled by area averages |
+| `PixelMosaic` | Square mean-colour blocks with optional joints |
 | `Oil` | Edge-preserving Kuwahara painting |
 | `Posterize` | Quantized colour bands with optional outlines |
 | `Watercolour` | Soft bleeding washes with paper and granulation |
@@ -18,6 +20,14 @@
 ```julia
 effect = LowPoly(points = 3_000, seed = 42)
 result = apply(effect, img)
+```
+
+Regular mosaics express their cell size in output pixels:
+
+```julia
+honeycomb = apply(HexMosaic(cell=10), img)
+tiles = apply(PixelMosaic(
+    block=12, joint=1, joint_color=RGB("#eee5d5")), img)
 ```
 
 Watercolour texture is deterministic and its radius is measured in pixels:

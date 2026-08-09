@@ -9,6 +9,8 @@ LowPoly
 Voronoi
 VoronoiStained
 VoronoiLloyd
+HexMosaic
+PixelMosaic
 Oil
 Posterize
 Watercolour

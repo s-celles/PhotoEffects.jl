@@ -41,14 +41,15 @@ include("effects/pipeline.jl")
 include("effects/oil.jl")
 include("effects/lowpoly.jl")
 include("effects/voronoi.jl")
+include("effects/mosaic.jl")
 include("effects/posterize.jl")
 include("effects/watercolour.jl")
 include("effects/duotone.jl")
 include("effects/halftone.jl")
 include("effects/dither.jl")
 
-export AbstractEffect, Dither, Duotone, Halftone, LowPoly, Oil, Pipeline,
-       Posterize, Watercolour
+export AbstractEffect, Dither, Duotone, Halftone, HexMosaic, LowPoly, Oil,
+       Pipeline, PixelMosaic, Posterize, Watercolour
 export Voronoi, VoronoiLloyd, VoronoiStained
 export apply, fit_cover, twilight
 export Appearance, DitherMethod, HalftoneShape
@@ -60,6 +61,8 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(Oil(radius = 2, passes = 1), img)
         apply(LowPoly(points = 20), img)
         apply(Voronoi(points = 20), img)
+        apply(HexMosaic(cell = 4), img)
+        apply(PixelMosaic(block = 4), img)
         apply(Posterize(levels = 4), img)
         apply(Watercolour(radius = 2), img)
         apply(Duotone(), img)

@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `HexMosaic` honeycomb cells and `PixelMosaic` square mean-colour tiles with
+  optional coloured joints.
 - `Watercolour` with deterministic pigment granulation, paper lightening and
   controllable soft wash bleeding.
 - `Dither`, backed by DitherPunk, with Floyd–Steinberg and Bayer algorithms,
