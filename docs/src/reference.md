@@ -11,9 +11,12 @@ VoronoiStained
 VoronoiLloyd
 Oil
 Posterize
+Watercolour
 Duotone
 Halftone
 HalftoneShape
+Dither
+DitherMethod
 apply
 ```
 

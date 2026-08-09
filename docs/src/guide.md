@@ -10,12 +10,31 @@
 | `VoronoiLloyd` | Relaxed Voronoi cells with more even areas |
 | `Oil` | Edge-preserving Kuwahara painting |
 | `Posterize` | Quantized colour bands with optional outlines |
+| `Watercolour` | Soft bleeding washes with paper and granulation |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
+| `Dither` | Palette reduction through diffusion or a Bayer matrix |
 
 ```julia
 effect = LowPoly(points = 3_000, seed = 42)
 result = apply(effect, img)
+```
+
+Watercolour texture is deterministic and its radius is measured in pixels:
+
+```julia
+painted = apply(Watercolour(
+    radius=6, bleeding=0.5, granulation=0.08, paper=0.12, seed=42), img)
+```
+
+`Dither()` generates a binary grayscale palette by default. Choose ordered
+dithering or supply a colour palette when a graphic colour treatment is
+needed:
+
+```julia
+retro = apply(Dither(
+    method=DitherMethod.BAYER,
+    palette=[RGB("#172038"), RGB("#f4d58d")]), img)
 ```
 
 ## Composing effects
@@ -35,8 +54,9 @@ model and channel precision. This preserves `Gray`, floating-point RGB, HSV,
 Lab and transparent colourants. Alpha values are copied unchanged from the
 source image.
 
-Effects with their own palette, including `Duotone`, `Halftone` and
-`VoronoiStained`, produce colour when their input is grayscale. Use
+Effects with their own palette, including `Duotone`, `Halftone`, a
+palette-backed `Dither`, and `VoronoiStained`, produce colour when their input
+is grayscale. Use
 `output_type` to request another representation explicitly:
 
 ```julia

@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**8 of 24 done**, across four of the seven families.
+**10 of 24 done**, across four of the seven families.
 
 ---
 
@@ -31,7 +31,7 @@ A few Lloyd iterations give cells of **even size**, a calmer and more regular
 "scales" look. Centroids are measured from the same raster cells used by the
 renderer, keeping relaxation and final coverage consistent.
 
-### ⚪ `HexMosaic` — hexagonal mosaic
+### 🟡 `HexMosaic` — hexagonal mosaic
 Regular hexagon grid, each cell in its mean colour. Honeycomb aesthetic, very
 clean and retro-tech. Easy: fixed lattice plus per-cell mean.
 
@@ -56,7 +56,7 @@ Flattens into smoothed, edge-preserving patches: thick brushwork, impasto.
 Channels snapped to N levels, with optional inked contours. Screen-print,
 poster, comic-book look.
 
-### 🟡 `Watercolour` — watercolour
+### ✅ `Watercolour` — watercolour
 Bleeding edges, soft washes, granulation, lighter halos. Soft segmentation
 plus edge noise and a paper texture overlay. Delicate and pastel — ideal as a
 light variant. Moderate to hard.
@@ -78,7 +78,7 @@ Reinterprets the image as dots, lines or characters. Very graphic.
 Dot area encodes tone on a tilted lattice. Offset print / pop art.
 A CMYK colour version is still possible.
 
-### 🟡 `Dither` — ordered / Floyd–Steinberg dithering
+### ✅ `Dither` — ordered / Floyd–Steinberg dithering
 Reduced palette plus error diffusion or a Bayer matrix. Retro console
 (2–4 tone palette) or old press. **`DitherPunk.jl` already implements this** —
 this entry is about wiring it in behind the `AbstractEffect` interface, not

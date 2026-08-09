@@ -19,6 +19,7 @@ import Colors
 using DelaunayTriangulation: triangulate, each_solid_triangle,
                              triangle_vertices, get_point
 using DocStringExtensions
+using DitherPunk: Bayer, FloydSteinberg, dither
 using FixedPointNumbers: N0f8
 using ImageCore
 using ImageFiltering: imfilter, imgradients, mapwindow, Kernel, KernelFactors
@@ -41,13 +42,16 @@ include("effects/oil.jl")
 include("effects/lowpoly.jl")
 include("effects/voronoi.jl")
 include("effects/posterize.jl")
+include("effects/watercolour.jl")
 include("effects/duotone.jl")
 include("effects/halftone.jl")
+include("effects/dither.jl")
 
-export AbstractEffect, Duotone, Halftone, LowPoly, Oil, Pipeline, Posterize
+export AbstractEffect, Dither, Duotone, Halftone, LowPoly, Oil, Pipeline,
+       Posterize, Watercolour
 export Voronoi, VoronoiLloyd, VoronoiStained
 export apply, fit_cover, twilight
-export Appearance, HalftoneShape
+export Appearance, DitherMethod, HalftoneShape
 export Seeding, Scatter, Given, sow, render, frame
 
 @setup_workload begin
@@ -57,8 +61,10 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(LowPoly(points = 20), img)
         apply(Voronoi(points = 20), img)
         apply(Posterize(levels = 4), img)
+        apply(Watercolour(radius = 2), img)
         apply(Duotone(), img)
         apply(Halftone(cell = 4), img)
+        apply(Dither(), img)
         apply(Pipeline(Posterize(levels = 4), Duotone()), img)
         apply(VoronoiStained(points = 20), img)
         apply(VoronoiLloyd(points = 20, iterations = 1), img)

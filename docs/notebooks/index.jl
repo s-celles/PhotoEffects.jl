@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Eight effects, four families. Each is shown at representative parameters.
+Ten effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -48,8 +48,10 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(VoronoiLloyd(points = 500, iterations = 2), small),
         apply(Oil(radius = 3), small),
         apply(Posterize(levels = 9), small),
+        apply(Watercolour(radius = 3), small),
         apply(Duotone(), small),
-        apply(Halftone(cell = 6), small)]
+        apply(Halftone(cell = 6), small),
+        apply(Dither(method = DitherMethod.BAYER), small)]
     # rowmajor: mosaicview fills columns first by default, which would put the
     # tiles in a different order from the one the caption reads out below.
     mosaicview(shots...; nrow = 3, rowmajor = true, npad = 6,
@@ -59,7 +61,8 @@ end
 #%% md id=labels
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
-**VoronoiLloyd** · **Oil**, **Posterize** · **Duotone**, **Halftone**.
+**VoronoiLloyd** · **Oil**, **Posterize** · **Watercolour**, **Duotone** ·
+**Halftone**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -152,6 +155,24 @@ fills, edges into linework.
 #%% code id=poster
 apply(Posterize(; levels, outline), fit_cover(SOURCE, 640, 360))
 
+#%% md id=watercolour_md
+@md"""
+## Watercolour — wet edges and paper grain
+
+`bleeding` mixes pigment across a neighbourhood set by `radius`, while
+`granulation` breaks perfectly flat digital colour into a reproducible wash.
+The `paper` control leaves more of the white support visible.
+"""
+
+#%% code id=watercolour_controls
+@bind bleeding Slider(0.0:0.1:1.0; default = 0.5)
+@bind granulation Slider(0.0:0.02:0.2; default = 0.08)
+@bind paper Slider(0.0:0.05:0.4; default = 0.12)
+
+#%% code id=watercolour
+apply(Watercolour(; radius = 4, bleeding, granulation, paper, seed = 42),
+    fit_cover(SOURCE, 640, 360))
+
 #%% md id=halftone_md
 @md"""
 ## Halftone — tone as area, not as tone
@@ -182,6 +203,22 @@ grid and beats against it. That is why 45° is the traditional value.
 #%% code id=halftone
 let shape = square ? HalftoneShape.SQUARE : HalftoneShape.DOT
     apply(Halftone(; cell, angle, gamma, shape), fit_cover(SOURCE, 640, 360))
+end
+
+#%% md id=dither_md
+@md"""
+## Dither — reduced palettes
+
+Floyd–Steinberg diffuses quantisation error into following pixels; Bayer uses
+a fixed threshold matrix and produces a more visibly ordered retro texture.
+"""
+
+#%% code id=dither_control
+@bind ordered Toggle(; label = "Ordered Bayer matrix")
+
+#%% code id=dither
+let method = ordered ? DitherMethod.BAYER : DitherMethod.FLOYD_STEINBERG
+    apply(Dither(; method, levels = 4), fit_cover(SOURCE, 640, 360))
 end
 
 #%% md id=duotone_md
@@ -237,7 +274,7 @@ end
 ## Next
 
 The [roadmap](https://github.com/s-celles/PhotoEffects.jl/blob/main/ROADMAP.md)
-lists the sixteen effects still to come, and the conventions a new one must
+lists the fourteen effects still to come, and the conventions a new one must
 follow.
 """
 

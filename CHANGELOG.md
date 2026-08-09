@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `Watercolour` with deterministic pigment granulation, paper lightening and
+  controllable soft wash bleeding.
+- `Dither`, backed by DitherPunk, with Floyd–Steinberg and Bayer algorithms,
+  generated grayscale ramps and explicit colour palettes.
 - Colour-model-aware output for Gray, HSV, Lab, floating-point and transparent
   images, with unchanged alpha and an explicit `output_type` option.
 - `Pipeline` for ordered composition of effects.

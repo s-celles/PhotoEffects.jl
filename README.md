@@ -56,8 +56,10 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `VoronoiLloyd` | tessellation | relaxed cells of increasingly even area |
 | `Oil` | painting | Kuwahara filter |
 | `Posterize` | painting | channels snapped to N levels, optional inked edges |
+| `Watercolour` | painting | soft washes, granulation and paper lightening |
 | `Duotone` | minimal | luminance mapped onto a colour ramp |
 | `Halftone` | screen | tone as dot area on a tilted lattice |
+| `Dither` | screen | Floyd–Steinberg or Bayer palette reduction |
 | `Pipeline` | composition | effects applied from left to right |
 
 See [ROADMAP.md](ROADMAP.md) for the effects still to come.
@@ -158,6 +160,14 @@ nothing, and bands never drift.
 `outline` inks the contours above a given edge strength, which turns the
 poster look into cel-shading: bands become fills, edges become linework.
 
+### `Watercolour` — wet washes
+
+Pigment is mixed with a Gaussian neighbourhood to bleed across hard edges,
+then modulated by deterministic fine granulation. `paper` lifts the wash
+towards white as if the support showed through. The texture is reproducible
+for a fixed `seed`, while `radius` is expressed in pixels and should scale
+with output width.
+
 ### `Duotone` — gradient map
 
 Every pixel is reduced to its luminance, which then indexes a ramp built from
@@ -178,6 +188,12 @@ printing.
 
 Output holds **two colours only** — a halftone simulates grey through area,
 never through intermediate tones.
+
+### `Dither` — palette reduction
+
+`Dither` delegates its raster algorithm to DitherPunk and exposes stable
+effect parameters: Floyd–Steinberg error diffusion or an ordered Bayer
+matrix, plus either an evenly spaced grayscale ramp or an explicit palette.
 
 The lattice is rotated (45° by default) because an unrotated screen aligns
 with the pixel grid and beats against it into moiré. Like `Oil`'s radius,
