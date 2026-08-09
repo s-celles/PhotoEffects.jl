@@ -22,6 +22,7 @@ Blobs
 Grain
 Vignette
 Bloom
+TiltShift
 Duotone
 Halftone
 HalftoneShape

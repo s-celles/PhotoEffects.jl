@@ -73,6 +73,7 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Grain` | post-processing | deterministic luminance or chromatic texture |
 | `Vignette` | post-processing | smooth radial perimeter attenuation |
 | `Bloom` | post-processing | thresholded highlight diffusion |
+| `TiltShift` | post-processing | sharp band with progressive peripheral blur |
 
 See [ROADMAP.md](ROADMAP.md) for the effects still to come.
 

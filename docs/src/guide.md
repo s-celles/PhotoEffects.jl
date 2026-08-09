@@ -137,6 +137,14 @@ focused = apply(Pipeline(
 
 Both accept zero strength as an exact identity.
 
+`TiltShift` keeps a normalized horizontal band sharp and progressively blends
+the rest into a pixel-scaled blur:
+
+```julia
+miniature = apply(TiltShift(radius=8, focus=0.5,
+    band=0.25, transition=0.2), img)
+```
+
 ## Colour models and transparency
 
 The renderer uses RGB internally and converts the result back to the input

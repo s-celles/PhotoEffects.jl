@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Composable `TiltShift` with a normalized sharp band and smooth progressive
+  blending into a pixel-scaled Gaussian blur.
 - Independent composable `Vignette` and `Bloom` stages for smooth radial
   attenuation and thresholded highlight diffusion.
 - Composable `Grain` post-processing with deterministic monochrome or

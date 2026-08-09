@@ -147,7 +147,7 @@ To layer over any effect above:
 
 - ✅ **Grain / paper texture** — silver-halide or watercolour-paper matter.
 - ✅ **Vignette / bloom** — focuses the eye, softens the mood.
-- **Tilt-shift** — progressive blur top and bottom, miniature effect.
+- ✅ **Tilt-shift** — progressive blur top and bottom, miniature effect.
 - **Border / mat** — framed-print look.
 
 These are implemented as independent `AbstractEffect`s so they can be
