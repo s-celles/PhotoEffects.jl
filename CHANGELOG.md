@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `Cubist` sparse convex polygon planes with deterministic per-cell colour
+  displacement and reusable explicit seeding.
 - `HexMosaic` honeycomb cells and `PixelMosaic` square mean-colour tiles with
   optional coloured joints.
 - `Watercolour` with deterministic pigment granulation, paper lightening and

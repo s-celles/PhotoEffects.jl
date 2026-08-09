@@ -54,6 +54,7 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Voronoi` | tessellation | polygonal cells, mean colour |
 | `VoronoiStained` | tessellation | polygonal cells separated by leading |
 | `VoronoiLloyd` | tessellation | relaxed cells of increasingly even area |
+| `Cubist` | tessellation | sparse convex planes with shifted colours |
 | `HexMosaic` | tessellation | regular honeycomb cells in their mean colour |
 | `PixelMosaic` | tessellation | square mean-colour blocks with optional joints |
 | `Oil` | painting | Kuwahara filter |
@@ -157,6 +158,13 @@ when the resulting PNGs are version-controlled.
 regions are regular hexagons. `PixelMosaic` divides the raster into clipped
 square blocks and can add a coloured joint between tiles. Both paint every
 cell with the exact mean colour below it and cover partial cells at borders.
+
+### `Cubist` — angular colour planes
+
+`Cubist` builds a sparse irregular convex tiling and shifts each cell colour
+through a deterministic stream. The result keeps the scene's broad geometry
+while breaking continuous surfaces into contrasting planes. `shift=0`
+recovers the equivalent Voronoi area averages exactly.
 
 ### `Posterize` — poster / cel-shading
 

@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**12 of 24 done**, across four of the seven families.
+**13 of 24 done**, across four of the seven families.
 
 ---
 
@@ -39,7 +39,7 @@ clean and retro-tech. Easy: fixed lattice plus per-cell mean.
 Square blocks in mean colour. Large blocks give retro pixel art, small ones a
 pointillist impression. Option: light joints between tiles for a tiled look.
 
-### 🟡 `Cubist` — random convex polygons
+### ✅ `Cubist` — random convex polygons
 Larger, more angular irregular polygons with slightly shifted colours.
 Cubist / abstract stained glass. `ImageSegmentation.jl` can seed the regions.
 

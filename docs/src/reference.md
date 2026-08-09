@@ -9,6 +9,7 @@ LowPoly
 Voronoi
 VoronoiStained
 VoronoiLloyd
+Cubist
 HexMosaic
 PixelMosaic
 Oil

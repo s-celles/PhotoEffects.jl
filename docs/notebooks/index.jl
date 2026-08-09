@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Twelve effects, four families. Each is shown at representative parameters.
+Thirteen effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -46,6 +46,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Voronoi(points = 500), small),
         apply(VoronoiStained(points = 500, joint = 1), small),
         apply(VoronoiLloyd(points = 500, iterations = 2), small),
+        apply(Cubist(points = 90, shift = 0.18), small),
         apply(HexMosaic(cell = 8), small),
         apply(PixelMosaic(block = 10, joint = 1), small),
         apply(Oil(radius = 3), small),
@@ -63,7 +64,7 @@ end
 #%% md id=labels
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
-**VoronoiLloyd** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
+**VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
 **Watercolour**, **Duotone** · **Halftone**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
@@ -96,6 +97,23 @@ let img = fit_cover(SOURCE, 640, 360)
         Voronoi(; points, detail, background)
     apply(e, img)
 end
+
+#%% md id=cubist_md
+@md"""
+## Cubist planes
+
+A sparse convex tessellation simplifies the photograph into broad angular
+planes. `shift` then separates adjacent cell colours without changing their
+geometry; both the planes and their colour displacement are reproducible.
+"""
+
+#%% code id=cubist_controls
+@bind cubist_points Slider(30:15:240; default = 90)
+@bind cubist_shift Slider(0.0:0.02:0.4; default = 0.18)
+
+#%% code id=cubist
+apply(Cubist(points = cubist_points, shift = cubist_shift, seed = 42),
+    fit_cover(SOURCE, 640, 360))
 
 #%% md id=mosaic_md
 @md"""
