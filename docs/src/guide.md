@@ -145,6 +145,14 @@ miniature = apply(TiltShift(radius=8, focus=0.5,
     band=0.25, transition=0.2), img)
 ```
 
+`Border` paints a dimension-preserving mat inward from the image perimeter:
+
+```julia
+print = apply(Border(width=24, color=RGB("#f4efe2")), img)
+```
+
+Widths beyond the available interior fill the frame cleanly; zero is identity.
+
 ## Colour models and transparency
 
 The renderer uses RGB internally and converts the result back to the input

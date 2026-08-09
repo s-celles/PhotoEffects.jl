@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Dimension-preserving composable `Border` for an inward print mat, including
+  exact identity at zero width and well-defined oversized clipping.
 - Composable `TiltShift` with a normalized sharp band and smooth progressive
   blending into a pixel-scaled Gaussian blur.
 - Independent composable `Vignette` and `Bloom` stages for smooth radial

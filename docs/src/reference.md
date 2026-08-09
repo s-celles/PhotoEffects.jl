@@ -23,6 +23,7 @@ Grain
 Vignette
 Bloom
 TiltShift
+Border
 Duotone
 Halftone
 HalftoneShape
