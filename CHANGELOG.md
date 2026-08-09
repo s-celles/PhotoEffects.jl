@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `Pointillism` with edge-aware deterministic dot placement, variable pixel
+  radii, sampled source colours, and configurable paper colour.
 - `Contour` topographic iso-luminance linework with configurable bands,
   thickness, ink, and paper colours.
 - `Cubist` sparse convex polygon planes with deterministic per-cell colour

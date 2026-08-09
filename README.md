@@ -60,6 +60,7 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Oil` | painting | Kuwahara filter |
 | `Posterize` | painting | channels snapped to N levels, optional inked edges |
 | `Watercolour` | painting | soft washes, granulation and paper lightening |
+| `Pointillism` | painting | edge-aware sampled-colour dots on paper |
 | `Duotone` | minimal | luminance mapped onto a colour ramp |
 | `Halftone` | screen | tone as dot area on a tilted lattice |
 | `Contour` | screen | iso-luminance topographic linework |
@@ -185,6 +186,13 @@ then modulated by deterministic fine granulation. `paper` lifts the wash
 towards white as if the support showed through. The texture is reproducible
 for a fixed `seed`, while `radius` is expressed in pixels and should scale
 with output width.
+
+### `Pointillism` — sampled-colour dots
+
+Dots are concentrated around image detail by the shared seeding machinery,
+painted with their source colour, and given deterministic varying radii.
+`background_weight` balances edge-following density against uniform coverage;
+the radius bounds are measured in output pixels.
 
 ### `Duotone` — gradient map
 

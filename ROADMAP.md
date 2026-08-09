@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**14 of 24 done**, across four of the seven families.
+**15 of 24 done**, across four of the seven families.
 
 ---
 
@@ -65,7 +65,7 @@ light variant. Moderate to hard.
 Thousands of strokes oriented by the local gradient (stroke-based rendering).
 Van Gogh / Monet: matter and movement. Hard.
 
-### ⚪ `Pointillism` — pointillism
+### ✅ `Pointillism` — pointillism
 A swarm of coloured dots of varying size, density following detail. Seurat.
 
 ---

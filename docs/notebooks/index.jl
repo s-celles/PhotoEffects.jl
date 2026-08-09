@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Fourteen effects, four families. Each is shown at representative parameters.
+Fifteen effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -52,6 +52,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Oil(radius = 3), small),
         apply(Posterize(levels = 9), small),
         apply(Watercolour(radius = 3), small),
+        apply(Pointillism(points = 500, max_radius = 3), small),
         apply(Duotone(), small),
         apply(Halftone(cell = 6), small),
         apply(Contour(levels = 7), small),
@@ -66,7 +67,7 @@ end
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
-**Watercolour**, **Duotone** · **Halftone**, **Contour**, **Dither**.
+**Watercolour**, **Pointillism**, **Duotone** · **Halftone**, **Contour**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -212,6 +213,25 @@ The `paper` control leaves more of the white support visible.
 
 #%% code id=watercolour
 apply(Watercolour(; radius = 4, bleeding, granulation, paper, seed = 42),
+    fit_cover(SOURCE, 640, 360))
+
+#%% md id=pointillism_md
+@md"""
+## Pointillism — colour through discrete marks
+
+Dots borrow their colour from the source. Their centres concentrate around
+detail while a uniform component keeps quiet regions represented; varying
+radii prevent the result from reading as a rigid screen.
+"""
+
+#%% code id=pointillism_controls
+@bind dot_count Slider(200:200:2400; default = 1200)
+@bind dot_radius Slider(1:1:6; default = 4)
+
+#%% code id=pointillism
+apply(
+    Pointillism(points = dot_count, min_radius = 1,
+        max_radius = dot_radius, seed = 42),
     fit_cover(SOURCE, 640, 360))
 
 #%% md id=halftone_md

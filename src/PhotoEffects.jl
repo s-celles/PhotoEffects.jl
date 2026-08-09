@@ -45,6 +45,7 @@ include("effects/cubist.jl")
 include("effects/mosaic.jl")
 include("effects/posterize.jl")
 include("effects/watercolour.jl")
+include("effects/pointillism.jl")
 include("effects/duotone.jl")
 include("effects/halftone.jl")
 include("effects/dither.jl")
@@ -53,7 +54,7 @@ include("effects/contour.jl")
 export AbstractEffect, Contour, Cubist, Dither, Duotone, Halftone, HexMosaic,
        LowPoly,
        Oil,
-       Pipeline, PixelMosaic, Posterize, Watercolour
+       Pipeline, PixelMosaic, Pointillism, Posterize, Watercolour
 export Voronoi, VoronoiLloyd, VoronoiStained
 export apply, fit_cover, twilight
 export Appearance, DitherMethod, HalftoneShape
@@ -70,6 +71,7 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(PixelMosaic(block = 4), img)
         apply(Posterize(levels = 4), img)
         apply(Watercolour(radius = 2), img)
+        apply(Pointillism(points = 20), img)
         apply(Duotone(), img)
         apply(Halftone(cell = 4), img)
         apply(Dither(), img)

@@ -14,6 +14,7 @@
 | `Oil` | Edge-preserving Kuwahara painting |
 | `Posterize` | Quantized colour bands with optional outlines |
 | `Watercolour` | Soft bleeding washes with paper and granulation |
+| `Pointillism` | Edge-aware sampled-colour dots on paper |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
 | `Contour` | Topographic lines at discrete luminance bands |
@@ -45,6 +46,14 @@ Watercolour texture is deterministic and its radius is measured in pixels:
 ```julia
 painted = apply(Watercolour(
     radius=6, bleeding=0.5, granulation=0.08, paper=0.12, seed=42), img)
+```
+
+Pointillist density follows image detail, while radii are expressed in output
+pixels:
+
+```julia
+dots = apply(Pointillism(points=1200, min_radius=1, max_radius=4,
+    detail=1.4, background_weight=2, seed=42), img)
 ```
 
 `Dither()` generates a binary grayscale palette by default. Choose ordered
