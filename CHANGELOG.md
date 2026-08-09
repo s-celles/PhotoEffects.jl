@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `Hatching` engraving-style line families whose crossed-layer density
+  increases monotonically into shadow.
 - `Brushes` impressionist stroke rendering with edge-aware placement,
   gradient-driven orientation, sampled colours, and deterministic flat-field
   orientation.

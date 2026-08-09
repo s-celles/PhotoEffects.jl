@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Sixteen effects, four families. Each is shown at representative parameters.
+Seventeen effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -57,6 +57,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Duotone(), small),
         apply(Halftone(cell = 6), small),
         apply(Contour(levels = 7), small),
+        apply(Hatching(spacing = 6), small),
         apply(Dither(method = DitherMethod.BAYER), small)]
     # rowmajor: mosaicview fills columns first by default, which would put the
     # tiles in a different order from the one the caption reads out below.
@@ -68,7 +69,8 @@ end
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
-**Watercolour**, **Brushes**, **Pointillism**, **Duotone** · **Halftone**, **Contour**, **Dither**.
+**Watercolour**, **Brushes**, **Pointillism**, **Duotone** · **Halftone**, **Contour**,
+**Hatching**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -300,6 +302,23 @@ retain subtle modelling; fewer levels reduce the scene to a sparse map.
 
 #%% code id=contour
 apply(Contour(levels = contour_levels, width = contour_width),
+    fit_cover(SOURCE, 640, 360))
+
+#%% md id=hatching_md
+@md"""
+## Hatching — shadow through crossed ink
+
+The first line family establishes a drawing; deeper tones activate additional
+angles. Shadows therefore gain physical ink density instead of merely becoming
+darker pixels.
+"""
+
+#%% code id=hatching_controls
+@bind hatch_spacing Slider(3:1:12; default = 7)
+@bind hatch_layers Slider(1:1:3; default = 3)
+
+#%% code id=hatching
+apply(Hatching(spacing = hatch_spacing, layers = hatch_layers),
     fit_cover(SOURCE, 640, 360))
 
 #%% md id=dither_md

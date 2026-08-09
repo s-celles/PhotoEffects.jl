@@ -19,6 +19,7 @@
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
 | `Contour` | Topographic lines at discrete luminance bands |
+| `Hatching` | Crossed engraving lines activated by shadow |
 | `Dither` | Palette reduction through diffusion or a Bayer matrix |
 
 ```julia
@@ -80,6 +81,13 @@ retro = apply(Dither(
 ```julia
 mapped = apply(Contour(levels=8, width=1,
     line_color=RGB("#172038"), background=RGB("#f4efe2")), img)
+```
+
+Hatching adds rotated line families progressively as tones darken:
+
+```julia
+engraved = apply(Hatching(spacing=7, width=1, layers=3,
+    angle=π/4), img)
 ```
 
 ## Composing effects

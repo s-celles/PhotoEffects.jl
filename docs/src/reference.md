@@ -21,6 +21,7 @@ Duotone
 Halftone
 HalftoneShape
 Contour
+Hatching
 Dither
 DitherMethod
 apply

@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**16 of 24 done**, across four of the seven families.
+**17 of 24 done**, across four of the seven families.
 
 ---
 
@@ -88,7 +88,7 @@ reimplementing it.
 Topographic-map lines. Spare and cartographic, very elegant in monochrome or
 duotone.
 
-### ⚪ `Hatching` — hatching / engraving
+### ✅ `Hatching` — hatching / engraving
 Crossed strokes whose density encodes shadow. Engraving or pen drawing.
 
 ### 🔬 `Ascii` — ASCII art
