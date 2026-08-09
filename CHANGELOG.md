@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Composable `Grain` post-processing with deterministic monochrome or
+  chromatic texture and an exact zero-amount identity.
 - `Blobs` palette-driven abstraction with deterministic dominant-colour
   clustering, a soft gradient field, and seeded Gaussian colour masses.
 - `LineArt` edge-only rendering using the package's robust normalized Sobel

@@ -149,11 +149,17 @@ end
 `Pipeline` applies stages from left to right. Colour-space conversion happens
 once around the complete pipeline. Opaque and transparent inputs keep their
 colour model and channel precision; alpha is copied unchanged.
+
+`Grain` is an independent stage: it can texture any effect without adding a
+grain flag to that effect's own parameters.
 """
 
 #%% code id=composition
 let img = fit_cover(SOURCE, 640, 360)
-    apply(Pipeline(Oil(radius = 2), Posterize(levels = 7), Duotone()), img)
+    apply(
+        Pipeline(Oil(radius = 2), Posterize(levels = 7), Duotone(),
+            Grain(amount = 0.04, seed = 42)),
+        img)
 end
 
 #%% md id=oil_md

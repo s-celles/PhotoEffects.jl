@@ -54,9 +54,10 @@ include("effects/contour.jl")
 include("effects/hatching.jl")
 include("effects/lineart.jl")
 include("effects/blobs.jl")
+include("effects/grain.jl")
 
 export AbstractEffect, Blobs, Brushes, Contour, Cubist, Dither, Duotone,
-       Halftone,
+       Grain, Halftone,
        Hatching,
        HexMosaic,
        LineArt, LowPoly,
@@ -87,6 +88,7 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(Hatching(), img)
         apply(LineArt(), img)
         apply(Blobs(colors = 2, blobs = 2, radius = 8), img)
+        apply(Grain(), img)
         apply(Pipeline(Posterize(levels = 4), Duotone()), img)
         apply(VoronoiStained(points = 20), img)
         apply(VoronoiLloyd(points = 20, iterations = 1), img)

@@ -116,6 +116,16 @@ effect = Pipeline(Oil(radius = 3), Posterize(levels = 7), Duotone())
 result = apply(effect, img)
 ```
 
+Post-processing effects are ordinary pipeline stages. `Grain` adds a seeded
+luminance texture, or independent channel texture with `chromatic=true`:
+
+```julia
+textured = apply(Pipeline(
+    Oil(radius=3), Grain(amount=0.06, seed=42)), img)
+```
+
+`Grain(amount=0)` is an exact identity stage.
+
 ## Colour models and transparency
 
 The renderer uses RGB internally and converts the result back to the input

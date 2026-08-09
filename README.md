@@ -70,6 +70,7 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Hatching` | screen | crossed engraving lines following shadow density |
 | `Dither` | screen | Floyd–Steinberg or Bayer palette reduction |
 | `Pipeline` | composition | effects applied from left to right |
+| `Grain` | post-processing | deterministic luminance or chromatic texture |
 
 See [ROADMAP.md](ROADMAP.md) for the effects still to come.
 

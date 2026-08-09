@@ -19,6 +19,7 @@ Brushes
 Pointillism
 LineArt
 Blobs
+Grain
 Duotone
 Halftone
 HalftoneShape
