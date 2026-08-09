@@ -17,6 +17,7 @@ Posterize
 Watercolour
 Brushes
 Pointillism
+LineArt
 Duotone
 Halftone
 HalftoneShape

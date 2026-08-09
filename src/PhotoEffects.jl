@@ -52,11 +52,12 @@ include("effects/halftone.jl")
 include("effects/dither.jl")
 include("effects/contour.jl")
 include("effects/hatching.jl")
+include("effects/lineart.jl")
 
 export AbstractEffect, Brushes, Contour, Cubist, Dither, Duotone, Halftone,
        Hatching,
        HexMosaic,
-       LowPoly,
+       LineArt, LowPoly,
        Oil,
        Pipeline, PixelMosaic, Pointillism, Posterize, Watercolour
 export Voronoi, VoronoiLloyd, VoronoiStained
@@ -82,6 +83,7 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(Dither(), img)
         apply(Contour(), img)
         apply(Hatching(), img)
+        apply(LineArt(), img)
         apply(Pipeline(Posterize(levels = 4), Duotone()), img)
         apply(VoronoiStained(points = 20), img)
         apply(VoronoiLloyd(points = 20, iterations = 1), img)

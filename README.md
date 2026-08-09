@@ -62,6 +62,7 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Watercolour` | painting | soft washes, granulation and paper lightening |
 | `Brushes` | painting | gradient-oriented sampled-colour strokes |
 | `Pointillism` | painting | edge-aware sampled-colour dots on paper |
+| `LineArt` | minimal | normalized Sobel edges on plain paper |
 | `Duotone` | minimal | luminance mapped onto a colour ramp |
 | `Halftone` | screen | tone as dot area on a tilted lattice |
 | `Contour` | screen | iso-luminance topographic linework |

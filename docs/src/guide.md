@@ -16,6 +16,7 @@
 | `Watercolour` | Soft bleeding washes with paper and granulation |
 | `Brushes` | Source-coloured strokes following local gradients |
 | `Pointillism` | Edge-aware sampled-colour dots on paper |
+| `LineArt` | Normalized Sobel edges on a plain background |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
 | `Contour` | Topographic lines at discrete luminance bands |
@@ -88,6 +89,13 @@ Hatching adds rotated line families progressively as tones darken:
 ```julia
 engraved = apply(Hatching(spacing=7, width=1, layers=3,
     angle=π/4), img)
+```
+
+Line art keeps only gradients above a robust image-relative threshold:
+
+```julia
+drawing = apply(LineArt(threshold=0.2, width=1,
+    line_color=RGB("#172038"), background=RGB("#f7f3e8")), img)
 ```
 
 ## Composing effects

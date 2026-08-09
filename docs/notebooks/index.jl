@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Seventeen effects, four families. Each is shown at representative parameters.
+Eighteen effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -55,6 +55,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Brushes(strokes = 700, length = 7, width = 2), small),
         apply(Pointillism(points = 500, max_radius = 3), small),
         apply(Duotone(), small),
+        apply(LineArt(), small),
         apply(Halftone(cell = 6), small),
         apply(Contour(levels = 7), small),
         apply(Hatching(spacing = 6), small),
@@ -69,7 +70,7 @@ end
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
-**Watercolour**, **Brushes**, **Pointillism**, **Duotone** · **Halftone**, **Contour**,
+**Watercolour**, **Brushes**, **Pointillism**, **Duotone**, **LineArt** · **Halftone**, **Contour**,
 **Hatching**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
@@ -361,6 +362,22 @@ starts asserting itself across the midtones instead of only at the ends.
 let stops = [parse(RGB, shadow), parse(RGB, highlight)]
     apply(Duotone(stops), fit_cover(SOURCE, 640, 360))
 end
+
+#%% md id=lineart_md
+@md"""
+## Line art — structure without tone
+
+The robust normalized edge scale keeps the threshold meaningful across
+photographs. Only gradients survive; ink and paper replace all source colour.
+"""
+
+#%% code id=lineart_controls
+@bind line_threshold Slider(0.05:0.05:0.9; default = 0.2)
+@bind line_width Slider(1:1:3; default = 1)
+
+#%% code id=lineart
+apply(LineArt(threshold = line_threshold, width = line_width),
+    fit_cover(SOURCE, 640, 360))
 
 #%% md id=dark_md
 @md"""

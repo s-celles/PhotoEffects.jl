@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `LineArt` edge-only rendering using the package's robust normalized Sobel
+  scale, with configurable threshold, pixel width, ink, and paper.
 - `Hatching` engraving-style line families whose crossed-layer density
   increases monotonically into shadow.
 - `Brushes` impressionist stroke rendering with edge-aware placement,

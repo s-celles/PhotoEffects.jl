@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**17 of 24 done**, across four of the seven families.
+**18 of 24 done**, across four of the seven families.
 
 ---
 
@@ -108,7 +108,7 @@ Luminance mapped onto a 2–3 colour ramp. Spotify / minimalist-poster look.
 Dominant palette extracted, then a gradient background with large blurred
 blobs. Abstract and calm; keeps the mood, not the shapes.
 
-### ⚪ `LineArt` — edge detection only
+### ✅ `LineArt` — edge detection only
 Contours alone on a plain background. `ImageEdgeDetection.jl` provides Canny.
 
 ### 🔬 `TspArt` — single continuous line
