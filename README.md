@@ -60,6 +60,7 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Oil` | painting | Kuwahara filter |
 | `Posterize` | painting | channels snapped to N levels, optional inked edges |
 | `Watercolour` | painting | soft washes, granulation and paper lightening |
+| `Brushes` | painting | gradient-oriented sampled-colour strokes |
 | `Pointillism` | painting | edge-aware sampled-colour dots on paper |
 | `Duotone` | minimal | luminance mapped onto a colour ramp |
 | `Halftone` | screen | tone as dot area on a tilted lattice |
@@ -193,6 +194,13 @@ Dots are concentrated around image detail by the shared seeding machinery,
 painted with their source colour, and given deterministic varying radii.
 `background_weight` balances edge-following density against uniform coverage;
 the radius bounds are measured in output pixels.
+
+### `Brushes` — gradient-oriented marks
+
+Thousands of source-coloured strokes follow the local luminance gradient.
+Their centres use edge-aware seeding; deterministic random orientations keep
+flat regions painterly instead of imposing an arbitrary global direction.
+Stroke length and width are measured in output pixels.
 
 ### `Duotone` — gradient map
 

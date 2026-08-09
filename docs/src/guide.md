@@ -14,6 +14,7 @@
 | `Oil` | Edge-preserving Kuwahara painting |
 | `Posterize` | Quantized colour bands with optional outlines |
 | `Watercolour` | Soft bleeding washes with paper and granulation |
+| `Brushes` | Source-coloured strokes following local gradients |
 | `Pointillism` | Edge-aware sampled-colour dots on paper |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
@@ -53,6 +54,14 @@ pixels:
 
 ```julia
 dots = apply(Pointillism(points=1200, min_radius=1, max_radius=4,
+    detail=1.4, background_weight=2, seed=42), img)
+```
+
+Impressionist strokes use the same density machinery but orient their marks
+with the local luminance gradient:
+
+```julia
+painted = apply(Brushes(strokes=1800, length=9, width=2,
     detail=1.4, background_weight=2, seed=42), img)
 ```
 

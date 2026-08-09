@@ -15,6 +15,7 @@ PixelMosaic
 Oil
 Posterize
 Watercolour
+Brushes
 Pointillism
 Duotone
 Halftone

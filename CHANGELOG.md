@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `Brushes` impressionist stroke rendering with edge-aware placement,
+  gradient-driven orientation, sampled colours, and deterministic flat-field
+  orientation.
 - `Pointillism` with edge-aware deterministic dot placement, variable pixel
   radii, sampled source colours, and configurable paper colour.
 - `Contour` topographic iso-luminance linework with configurable bands,

@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Fifteen effects, four families. Each is shown at representative parameters.
+Sixteen effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -52,6 +52,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Oil(radius = 3), small),
         apply(Posterize(levels = 9), small),
         apply(Watercolour(radius = 3), small),
+        apply(Brushes(strokes = 700, length = 7, width = 2), small),
         apply(Pointillism(points = 500, max_radius = 3), small),
         apply(Duotone(), small),
         apply(Halftone(cell = 6), small),
@@ -67,7 +68,7 @@ end
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
-**Watercolour**, **Pointillism**, **Duotone** · **Halftone**, **Contour**, **Dither**.
+**Watercolour**, **Brushes**, **Pointillism**, **Duotone** · **Halftone**, **Contour**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -213,6 +214,25 @@ The `paper` control leaves more of the white support visible.
 
 #%% code id=watercolour
 apply(Watercolour(; radius = 4, bleeding, granulation, paper, seed = 42),
+    fit_cover(SOURCE, 640, 360))
+
+#%% md id=brushes_md
+@md"""
+## Brushes — gradient-oriented marks
+
+Stroke centres concentrate on detail and each mark borrows the local source
+colour. The luminance gradient gives structure its direction, while seeded
+orientations keep flat fields alive.
+"""
+
+#%% code id=brushes_controls
+@bind brush_count Slider(300:300:3000; default = 1800)
+@bind brush_length Slider(3:2:17; default = 9)
+
+#%% code id=brushes
+apply(
+    Brushes(strokes = brush_count, length = brush_length,
+        width = 2, seed = 42),
     fit_cover(SOURCE, 640, 360))
 
 #%% md id=pointillism_md

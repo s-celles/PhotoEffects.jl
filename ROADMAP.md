@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**15 of 24 done**, across four of the seven families.
+**16 of 24 done**, across four of the seven families.
 
 ---
 
@@ -61,7 +61,7 @@ Bleeding edges, soft washes, granulation, lighter halos. Soft segmentation
 plus edge noise and a paper texture overlay. Delicate and pastel — ideal as a
 light variant. Moderate to hard.
 
-### ⚪ `Brushes` — impressionist strokes
+### ✅ `Brushes` — impressionist strokes
 Thousands of strokes oriented by the local gradient (stroke-based rendering).
 Van Gogh / Monet: matter and movement. Hard.
 
