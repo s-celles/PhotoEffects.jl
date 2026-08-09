@@ -17,6 +17,7 @@
 | `Brushes` | Source-coloured strokes following local gradients |
 | `Pointillism` | Edge-aware sampled-colour dots on paper |
 | `LineArt` | Normalized Sobel edges on a plain background |
+| `Blobs` | Dominant-palette gradient with soft colour masses |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
 | `Contour` | Topographic lines at discrete luminance bands |
@@ -96,6 +97,13 @@ Line art keeps only gradients above a robust image-relative threshold:
 ```julia
 drawing = apply(LineArt(threshold=0.2, width=1,
     line_color=RGB("#172038"), background=RGB("#f7f3e8")), img)
+```
+
+`Blobs` deliberately ignores source geometry after extracting its dominant
+palette, retaining mood rather than shapes:
+
+```julia
+abstracted = apply(Blobs(colors=4, blobs=7, radius=120, seed=42), img)
 ```
 
 ## Composing effects

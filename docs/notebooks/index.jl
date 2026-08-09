@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Eighteen effects, four families. Each is shown at representative parameters.
+Nineteen effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -56,6 +56,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Pointillism(points = 500, max_radius = 3), small),
         apply(Duotone(), small),
         apply(LineArt(), small),
+        apply(Blobs(colors = 4, blobs = 7, radius = 80), small),
         apply(Halftone(cell = 6), small),
         apply(Contour(levels = 7), small),
         apply(Hatching(spacing = 6), small),
@@ -70,7 +71,7 @@ end
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
-**Watercolour**, **Brushes**, **Pointillism**, **Duotone**, **LineArt** · **Halftone**, **Contour**,
+**Watercolour**, **Brushes**, **Pointillism**, **Duotone**, **LineArt**, **Blobs** · **Halftone**, **Contour**,
 **Hatching**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
@@ -377,6 +378,24 @@ photographs. Only gradients survive; ink and paper replace all source colour.
 
 #%% code id=lineart
 apply(LineArt(threshold = line_threshold, width = line_width),
+    fit_cover(SOURCE, 640, 360))
+
+#%% md id=blobs_md
+@md"""
+## Blobs — keep the mood, release the shapes
+
+Dominant colours form a vertical gradient and seeded soft masses. Pixel
+positions no longer matter after palette extraction, so the result retains
+the photograph's atmosphere rather than its objects.
+"""
+
+#%% code id=blobs_controls
+@bind blob_count Slider(2:1:12; default = 7)
+@bind blob_radius Slider(30:10:180; default = 100)
+
+#%% code id=blobs
+apply(Blobs(colors = 4, blobs = blob_count,
+        radius = blob_radius, seed = 42),
     fit_cover(SOURCE, 640, 360))
 
 #%% md id=dark_md

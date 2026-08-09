@@ -18,6 +18,7 @@ Watercolour
 Brushes
 Pointillism
 LineArt
+Blobs
 Duotone
 Halftone
 HalftoneShape

@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**18 of 24 done**, across four of the seven families.
+**19 of 24 done**, across four of the seven families.
 
 ---
 
@@ -104,7 +104,7 @@ Reduces the image to essentials: silhouettes, flats, lines.
 ### ✅ `Duotone` — duotone / tritone
 Luminance mapped onto a 2–3 colour ramp. Spotify / minimalist-poster look.
 
-### ⚪ `Blobs` — soft colour blobs
+### ✅ `Blobs` — soft colour blobs
 Dominant palette extracted, then a gradient background with large blurred
 blobs. Abstract and calm; keeps the mood, not the shapes.
 
