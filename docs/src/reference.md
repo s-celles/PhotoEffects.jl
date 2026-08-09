@@ -29,6 +29,7 @@ Halftone
 HalftoneShape
 Contour
 Hatching
+Ascii
 Dither
 DitherMethod
 apply

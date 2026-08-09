@@ -58,8 +58,10 @@ include("effects/grain.jl")
 include("effects/focus.jl")
 include("effects/tiltshift.jl")
 include("effects/border.jl")
+include("effects/ascii.jl")
 
-export AbstractEffect, Blobs, Bloom, Border, Brushes, Contour, Cubist, Dither,
+export AbstractEffect, Ascii, Blobs, Bloom, Border, Brushes, Contour, Cubist,
+       Dither,
        Duotone,
        Grain, Halftone,
        Hatching,
@@ -98,6 +100,7 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(Bloom(radius = 2), img)
         apply(TiltShift(radius = 2), img)
         apply(Border(width = 2), img)
+        apply(Ascii(scale = 1), img)
         apply(Pipeline(Posterize(levels = 4), Duotone()), img)
         apply(VoronoiStained(points = 20), img)
         apply(VoronoiLloyd(points = 20, iterations = 1), img)

@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Nineteen effects, four families. Each is shown at representative parameters.
+Twenty effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -60,6 +60,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Halftone(cell = 6), small),
         apply(Contour(levels = 7), small),
         apply(Hatching(spacing = 6), small),
+        apply(Ascii(scale = 1), small),
         apply(Dither(method = DitherMethod.BAYER), small)]
     # rowmajor: mosaicview fills columns first by default, which would put the
     # tiles in a different order from the one the caption reads out below.
@@ -72,7 +73,7 @@ end
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
 **Watercolour**, **Brushes**, **Pointillism**, **Duotone**, **LineArt**, **Blobs** · **Halftone**, **Contour**,
-**Hatching**, **Dither**.
+**Hatching**, **Ascii**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -333,6 +334,20 @@ darker pixels.
 #%% code id=hatching
 apply(Hatching(spacing = hatch_spacing, layers = hatch_layers),
     fit_cover(SOURCE, 640, 360))
+
+#%% md id=ascii_md
+@md"""
+## ASCII — luminance as glyph density
+
+Every fixed-size cell selects one character from a monotone bitmap ramp. The
+font is embedded, so the render remains identical across machines.
+"""
+
+#%% code id=ascii_control
+@bind ascii_scale Slider(1:1:4; default = 2)
+
+#%% code id=ascii
+apply(Ascii(scale = ascii_scale), fit_cover(SOURCE, 640, 360))
 
 #%% md id=dither_md
 @md"""

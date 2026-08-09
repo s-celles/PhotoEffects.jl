@@ -68,6 +68,7 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Halftone` | screen | tone as dot area on a tilted lattice |
 | `Contour` | screen | iso-luminance topographic linework |
 | `Hatching` | screen | crossed engraving lines following shadow density |
+| `Ascii` | screen | monospace bitmap glyphs selected by luminance |
 | `Dither` | screen | Floyd–Steinberg or Bayer palette reduction |
 | `Pipeline` | composition | effects applied from left to right |
 | `Grain` | post-processing | deterministic luminance or chromatic texture |

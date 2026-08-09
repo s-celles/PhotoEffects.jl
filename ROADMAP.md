@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**19 of 24 done**, across four of the seven families.
+**20 of 24 done**, across four of the seven families.
 
 ---
 
@@ -91,7 +91,7 @@ duotone.
 ### ✅ `Hatching` — hatching / engraving
 Crossed strokes whose density encodes shadow. Engraving or pen drawing.
 
-### 🔬 `Ascii` — ASCII art
+### ✅ `Ascii` — ASCII art
 Rendered in monospace characters through a density ramp. Easy in principle;
 the care goes into font, resolution and aspect ratio.
 

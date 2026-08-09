@@ -22,6 +22,7 @@
 | `Halftone` | Tone represented by marks on a rotated screen |
 | `Contour` | Topographic lines at discrete luminance bands |
 | `Hatching` | Crossed engraving lines activated by shadow |
+| `Ascii` | Monospace 5×7 glyphs selected by cell luminance |
 | `Dither` | Palette reduction through diffusion or a Bayer matrix |
 
 ```julia
@@ -90,6 +91,14 @@ Hatching adds rotated line families progressively as tones darken:
 ```julia
 engraved = apply(Hatching(spacing=7, width=1, layers=3,
     angle=π/4), img)
+```
+
+ASCII rendering uses a built-in bitmap font, so it does not depend on system
+fonts or a graphics backend:
+
+```julia
+terminal = apply(Ascii(scale=2,
+    ink=RGB("#172038"), paper=RGB("#f4efe2")), img)
 ```
 
 Line art keeps only gradients above a robust image-relative threshold:
