@@ -55,14 +55,15 @@ include("effects/hatching.jl")
 include("effects/lineart.jl")
 include("effects/blobs.jl")
 include("effects/grain.jl")
+include("effects/focus.jl")
 
-export AbstractEffect, Blobs, Brushes, Contour, Cubist, Dither, Duotone,
+export AbstractEffect, Blobs, Bloom, Brushes, Contour, Cubist, Dither, Duotone,
        Grain, Halftone,
        Hatching,
        HexMosaic,
        LineArt, LowPoly,
        Oil,
-       Pipeline, PixelMosaic, Pointillism, Posterize, Watercolour
+       Pipeline, PixelMosaic, Pointillism, Posterize, Vignette, Watercolour
 export Voronoi, VoronoiLloyd, VoronoiStained
 export apply, fit_cover, twilight
 export Appearance, DitherMethod, HalftoneShape
@@ -89,6 +90,8 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(LineArt(), img)
         apply(Blobs(colors = 2, blobs = 2, radius = 8), img)
         apply(Grain(), img)
+        apply(Vignette(), img)
+        apply(Bloom(radius = 2), img)
         apply(Pipeline(Posterize(levels = 4), Duotone()), img)
         apply(VoronoiStained(points = 20), img)
         apply(VoronoiLloyd(points = 20, iterations = 1), img)

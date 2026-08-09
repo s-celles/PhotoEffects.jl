@@ -71,6 +71,8 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Dither` | screen | Floyd–Steinberg or Bayer palette reduction |
 | `Pipeline` | composition | effects applied from left to right |
 | `Grain` | post-processing | deterministic luminance or chromatic texture |
+| `Vignette` | post-processing | smooth radial perimeter attenuation |
+| `Bloom` | post-processing | thresholded highlight diffusion |
 
 See [ROADMAP.md](ROADMAP.md) for the effects still to come.
 

@@ -152,13 +152,15 @@ colour model and channel precision; alpha is copied unchanged.
 
 `Grain` is an independent stage: it can texture any effect without adding a
 grain flag to that effect's own parameters.
+The same is true for `Vignette` and `Bloom`, which can be enabled separately.
 """
 
 #%% code id=composition
 let img = fit_cover(SOURCE, 640, 360)
     apply(
         Pipeline(Oil(radius = 2), Posterize(levels = 7), Duotone(),
-            Grain(amount = 0.04, seed = 42)),
+            Bloom(radius = 5, strength = 0.25),
+            Vignette(strength = 0.35), Grain(amount = 0.04, seed = 42)),
         img)
 end
 

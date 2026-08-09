@@ -20,6 +20,8 @@ Pointillism
 LineArt
 Blobs
 Grain
+Vignette
+Bloom
 Duotone
 Halftone
 HalftoneShape

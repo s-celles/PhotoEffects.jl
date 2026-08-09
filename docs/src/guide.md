@@ -126,6 +126,17 @@ textured = apply(Pipeline(
 
 `Grain(amount=0)` is an exact identity stage.
 
+`Vignette` and `Bloom` address focus independently. The first attenuates the
+perimeter; the second diffuses only pixels above a luminance threshold:
+
+```julia
+focused = apply(Pipeline(
+    Vignette(strength=0.45, start=0.45),
+    Bloom(radius=8, strength=0.35, threshold=0.7)), img)
+```
+
+Both accept zero strength as an exact identity.
+
 ## Colour models and transparency
 
 The renderer uses RGB internally and converts the result back to the input
