@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Thirteen effects, four families. Each is shown at representative parameters.
+Fourteen effects, four families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -54,6 +54,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Watercolour(radius = 3), small),
         apply(Duotone(), small),
         apply(Halftone(cell = 6), small),
+        apply(Contour(levels = 7), small),
         apply(Dither(method = DitherMethod.BAYER), small)]
     # rowmajor: mosaicview fills columns first by default, which would put the
     # tiles in a different order from the one the caption reads out below.
@@ -65,7 +66,7 @@ end
 @md"""
 Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
-**Watercolour**, **Duotone** · **Halftone**, **Dither**.
+**Watercolour**, **Duotone** · **Halftone**, **Contour**, **Dither**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -244,6 +245,22 @@ grid and beats against it. That is why 45° is the traditional value.
 let shape = square ? HalftoneShape.SQUARE : HalftoneShape.DOT
     apply(Halftone(; cell, angle, gamma, shape), fit_cover(SOURCE, 640, 360))
 end
+
+#%% md id=contour_md
+@md"""
+## Contour — luminance as elevation
+
+Evenly spaced luminance bands become topographic boundaries. More levels
+retain subtle modelling; fewer levels reduce the scene to a sparse map.
+"""
+
+#%% code id=contour_controls
+@bind contour_levels Slider(2:1:16; default = 8)
+@bind contour_width Slider(1:1:3; default = 1)
+
+#%% code id=contour
+apply(Contour(levels = contour_levels, width = contour_width),
+    fit_cover(SOURCE, 640, 360))
 
 #%% md id=dither_md
 @md"""

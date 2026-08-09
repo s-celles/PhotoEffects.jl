@@ -18,6 +18,7 @@ Watercolour
 Duotone
 Halftone
 HalftoneShape
+Contour
 Dither
 DitherMethod
 apply

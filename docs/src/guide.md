@@ -16,6 +16,7 @@
 | `Watercolour` | Soft bleeding washes with paper and granulation |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
+| `Contour` | Topographic lines at discrete luminance bands |
 | `Dither` | Palette reduction through diffusion or a Bayer matrix |
 
 ```julia
@@ -54,6 +55,13 @@ needed:
 retro = apply(Dither(
     method=DitherMethod.BAYER,
     palette=[RGB("#172038"), RGB("#f4d58d")]), img)
+```
+
+`Contour` turns luminance bands into topographic linework on a flat paper:
+
+```julia
+mapped = apply(Contour(levels=8, width=1,
+    line_color=RGB("#172038"), background=RGB("#f4efe2")), img)
 ```
 
 ## Composing effects

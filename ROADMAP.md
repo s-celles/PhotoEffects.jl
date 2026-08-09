@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**13 of 24 done**, across four of the seven families.
+**14 of 24 done**, across four of the seven families.
 
 ---
 
@@ -84,7 +84,7 @@ Reduced palette plus error diffusion or a Bayer matrix. Retro console
 this entry is about wiring it in behind the `AbstractEffect` interface, not
 reimplementing it.
 
-### ⚪ `Contour` — iso-luminance contours
+### ✅ `Contour` — iso-luminance contours
 Topographic-map lines. Spare and cartographic, very elegant in monochrome or
 duotone.
 

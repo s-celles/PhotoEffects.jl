@@ -48,8 +48,10 @@ include("effects/watercolour.jl")
 include("effects/duotone.jl")
 include("effects/halftone.jl")
 include("effects/dither.jl")
+include("effects/contour.jl")
 
-export AbstractEffect, Cubist, Dither, Duotone, Halftone, HexMosaic, LowPoly,
+export AbstractEffect, Contour, Cubist, Dither, Duotone, Halftone, HexMosaic,
+       LowPoly,
        Oil,
        Pipeline, PixelMosaic, Posterize, Watercolour
 export Voronoi, VoronoiLloyd, VoronoiStained
@@ -71,6 +73,7 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(Duotone(), img)
         apply(Halftone(cell = 4), img)
         apply(Dither(), img)
+        apply(Contour(), img)
         apply(Pipeline(Posterize(levels = 4), Duotone()), img)
         apply(VoronoiStained(points = 20), img)
         apply(VoronoiLloyd(points = 20, iterations = 1), img)

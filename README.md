@@ -62,6 +62,7 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Watercolour` | painting | soft washes, granulation and paper lightening |
 | `Duotone` | minimal | luminance mapped onto a colour ramp |
 | `Halftone` | screen | tone as dot area on a tilted lattice |
+| `Contour` | screen | iso-luminance topographic linework |
 | `Dither` | screen | Floyd–Steinberg or Bayer palette reduction |
 | `Pipeline` | composition | effects applied from left to right |
 
