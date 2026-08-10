@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `FlowField` source-coloured particle trails following luminance gradients,
+  with deterministic procedural fallback motion across flat regions.
 - `TspArt` single closed-line rendering over darkness-weighted stipples, with
   deterministic nearest-neighbour routing and configurable 2-opt refinement.
 - `Ascii` with a built-in 5×7 monospace bitmap font, a strictly increasing

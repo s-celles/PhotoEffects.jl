@@ -60,10 +60,11 @@ include("effects/tiltshift.jl")
 include("effects/border.jl")
 include("effects/ascii.jl")
 include("effects/tspart.jl")
+include("effects/flowfield.jl")
 
 export AbstractEffect, Ascii, Blobs, Bloom, Border, Brushes, Contour, Cubist,
        Dither,
-       Duotone,
+       Duotone, FlowField,
        Grain, Halftone,
        Hatching,
        HexMosaic,
@@ -103,6 +104,7 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(Border(width = 2), img)
         apply(Ascii(scale = 1), img)
         apply(TspArt(points = 20, optimize = 0), img)
+        apply(FlowField(particles = 20, steps = 2), img)
         apply(Pipeline(Posterize(levels = 4), Duotone()), img)
         apply(VoronoiStained(points = 20), img)
         apply(VoronoiLloyd(points = 20, iterations = 1), img)

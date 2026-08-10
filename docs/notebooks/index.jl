@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Twenty-one effects, four families. Each is shown at representative parameters.
+Twenty-two effects, five families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -58,6 +58,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(LineArt(), small),
         apply(Blobs(colors = 4, blobs = 7, radius = 80), small),
         apply(TspArt(points = 350, optimize = 1), small),
+        apply(FlowField(particles = 500, steps = 8), small),
         apply(Halftone(cell = 6), small),
         apply(Contour(levels = 7), small),
         apply(Hatching(spacing = 6), small),
@@ -75,7 +76,7 @@ Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
 **Watercolour**, **Brushes**, **Pointillism**, **Duotone**, **LineArt**, **Blobs**,
 **TspArt** · **Halftone**, **Contour**,
-**Hatching**, **Ascii**, **Dither**.
+**Hatching**, **Ascii**, **Dither** · **FlowField**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -439,6 +440,24 @@ then visits each one exactly once and closes the route into a single stroke.
 
 #%% code id=tspart
 apply(TspArt(points = tsp_points, optimize = 1, seed = 42),
+    fit_cover(SOURCE, 640, 360))
+
+#%% md id=flowfield_md
+@md"""
+## Flow field — the photograph as a direction field
+
+Particles follow luminance gradients and leave their sampled source colour
+behind. A deterministic procedural direction carries them through flat sky,
+water, and other regions where the gradient vanishes.
+"""
+
+#%% code id=flowfield_control
+@bind flow_particles Slider(200:200:1600; default = 800)
+
+#%% code id=flowfield
+apply(
+    FlowField(particles = flow_particles, steps = 12,
+        step_size = 1.5, seed = 42),
     fit_cover(SOURCE, 640, 360))
 
 #%% md id=dark_md

@@ -20,6 +20,7 @@ Pointillism
 LineArt
 Blobs
 TspArt
+FlowField
 Grain
 Vignette
 Bloom

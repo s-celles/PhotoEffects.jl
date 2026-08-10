@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**21 of 24 done**, across four of the seven families.
+**22 of 24 done**, across five of the seven families.
 
 ---
 
@@ -121,7 +121,7 @@ reconstitutes the image. Hypnotic. Hard.
 
 Treats the photo as a data field. More experimental.
 
-### 🔬 `FlowField` — flow field
+### ✅ `FlowField` — flow field
 Particles following the image gradient, leaving coloured trails. Ink-in-water
 look. `CoherentNoise.jl` covers the noise, though it is dormant and has no
 built-in looping.

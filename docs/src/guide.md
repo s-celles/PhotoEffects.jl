@@ -19,6 +19,7 @@
 | `LineArt` | Normalized Sobel edges on a plain background |
 | `Blobs` | Dominant-palette gradient with soft colour masses |
 | `TspArt` | One closed route through darkness-weighted stipples |
+| `FlowField` | Source-coloured particles following the image gradient |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
 | `Contour` | Topographic lines at discrete luminance bands |
@@ -122,6 +123,14 @@ improves the closed nearest-neighbour route with 2-opt passes:
 ```julia
 continuous = apply(TspArt(points=600, width=1,
     optimize=1, seed=42), img)
+```
+
+`FlowField` advects particles through the luminance gradient and uses a seeded
+procedural field where gradients vanish:
+
+```julia
+flowing = apply(FlowField(particles=900, steps=14,
+    step_size=1.5, width=1, seed=42), img)
 ```
 
 ## Composing effects
