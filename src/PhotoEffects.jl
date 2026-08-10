@@ -61,6 +61,7 @@ include("effects/border.jl")
 include("effects/ascii.jl")
 include("effects/tspart.jl")
 include("effects/flowfield.jl")
+include("effects/reactiondiffusion.jl")
 
 export AbstractEffect, Ascii, Blobs, Bloom, Border, Brushes, Contour, Cubist,
        Dither,
@@ -70,7 +71,8 @@ export AbstractEffect, Ascii, Blobs, Bloom, Border, Brushes, Contour, Cubist,
        HexMosaic,
        LineArt, LowPoly,
        Oil,
-       Pipeline, PixelMosaic, Pointillism, Posterize, TiltShift, Vignette,
+       Pipeline, PixelMosaic, Pointillism, Posterize, ReactionDiffusion,
+       TiltShift, Vignette,
        TspArt, Watercolour
 export Voronoi, VoronoiLloyd, VoronoiStained
 export apply, fit_cover, twilight
@@ -105,6 +107,7 @@ export Seeding, Scatter, Given, sow, render, frame
         apply(Ascii(scale = 1), img)
         apply(TspArt(points = 20, optimize = 0), img)
         apply(FlowField(particles = 20, steps = 2), img)
+        apply(ReactionDiffusion(iterations = 2, spots = 2), img)
         apply(Pipeline(Posterize(levels = 4), Duotone()), img)
         apply(VoronoiStained(points = 20), img)
         apply(VoronoiLloyd(points = 20, iterations = 1), img)

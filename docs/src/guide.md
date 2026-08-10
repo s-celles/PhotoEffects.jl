@@ -20,6 +20,7 @@
 | `Blobs` | Dominant-palette gradient with soft colour masses |
 | `TspArt` | One closed route through darkness-weighted stipples |
 | `FlowField` | Source-coloured particles following the image gradient |
+| `ReactionDiffusion` | Periodic Gray–Scott patterns tinted by the source |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
 | `Contour` | Topographic lines at discrete luminance bands |
@@ -131,6 +132,14 @@ procedural field where gradients vanish:
 ```julia
 flowing = apply(FlowField(particles=900, steps=14,
     step_size=1.5, width=1, seed=42), img)
+```
+
+`ReactionDiffusion` evolves two Gray–Scott chemical fields on periodic image
+boundaries, then uses the resulting Turing texture to modulate source colour:
+
+```julia
+turing = apply(ReactionDiffusion(iterations=80,
+    feed=0.055, kill=0.062, spots=12, seed=42), img)
 ```
 
 ## Composing effects

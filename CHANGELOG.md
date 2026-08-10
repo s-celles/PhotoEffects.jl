@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `ReactionDiffusion` Gray–Scott Turing textures with periodic boundaries,
+  deterministic seeded initiation, configurable kinetics, and source-colour
+  tinting.
 - `FlowField` source-coloured particle trails following luminance gradients,
   with deterministic procedural fallback motion across flat regions.
 - `TspArt` single closed-line rendering over darkness-weighted stipples, with

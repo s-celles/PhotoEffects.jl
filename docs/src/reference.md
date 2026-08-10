@@ -21,6 +21,7 @@ LineArt
 Blobs
 TspArt
 FlowField
+ReactionDiffusion
 Grain
 Vignette
 Bloom

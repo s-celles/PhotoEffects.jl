@@ -66,6 +66,7 @@ twilight, so both versions of a wallpaper share the exact same geometry.
 | `Blobs` | minimal | dominant-palette gradient and soft colour masses |
 | `TspArt` | minimal | one closed line through darkness-weighted stipples |
 | `FlowField` | procedural | source-coloured gradient-following trails |
+| `ReactionDiffusion` | procedural | periodic Gray–Scott texture tinted by source |
 | `Duotone` | minimal | luminance mapped onto a colour ramp |
 | `Halftone` | screen | tone as dot area on a tilted lattice |
 | `Contour` | screen | iso-luminance topographic linework |

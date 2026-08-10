@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Twenty-two effects, five families. Each is shown at representative parameters.
+Twenty-three effects, five families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -59,6 +59,7 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(Blobs(colors = 4, blobs = 7, radius = 80), small),
         apply(TspArt(points = 350, optimize = 1), small),
         apply(FlowField(particles = 500, steps = 8), small),
+        apply(ReactionDiffusion(iterations = 50, spots = 8), small),
         apply(Halftone(cell = 6), small),
         apply(Contour(levels = 7), small),
         apply(Hatching(spacing = 6), small),
@@ -76,7 +77,7 @@ Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
 **Watercolour**, **Brushes**, **Pointillism**, **Duotone**, **LineArt**, **Blobs**,
 **TspArt** · **Halftone**, **Contour**,
-**Hatching**, **Ascii**, **Dither** · **FlowField**.
+**Hatching**, **Ascii**, **Dither** · **FlowField**, **ReactionDiffusion**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -458,6 +459,24 @@ water, and other regions where the gradient vanishes.
 apply(
     FlowField(particles = flow_particles, steps = 12,
         step_size = 1.5, seed = 42),
+    fit_cover(SOURCE, 640, 360))
+
+#%% md id=reaction_diffusion_md
+@md"""
+## Reaction diffusion — periodic Turing texture
+
+Gray–Scott chemistry evolves on a torus, so no artificial border enters the
+pattern. The final concentration field modulates the photograph while keeping
+its local hue.
+"""
+
+#%% code id=reaction_diffusion_control
+@bind reaction_iterations Slider(20:10:120; default = 70)
+
+#%% code id=reaction_diffusion
+apply(
+    ReactionDiffusion(iterations = reaction_iterations,
+        spots = 10, seed = 42),
     fit_cover(SOURCE, 640, 360))
 
 #%% md id=dark_md

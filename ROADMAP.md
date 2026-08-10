@@ -5,7 +5,7 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**22 of 24 done**, across five of the seven families.
+**23 of 24 done**, across five of the seven families.
 
 ---
 
@@ -126,7 +126,7 @@ Particles following the image gradient, leaving coloured trails. Ink-in-water
 look. `CoherentNoise.jl` covers the noise, though it is dormant and has no
 built-in looping.
 
-### 🔬 `ReactionDiffusion` — tinted Turing patterns
+### ✅ `ReactionDiffusion` — tinted Turing patterns
 Gray–Scott patterns coloured by the photo. Coral or skin texture. No
 ready-made Julia package aimed at imagery — a 2D Gray–Scott is about thirty
 lines, and periodic boundaries give a tileable pattern for free.
