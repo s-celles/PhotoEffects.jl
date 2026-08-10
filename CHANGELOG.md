@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- `Glitch` digital corruption combining wrapped RGB channel offsets,
+  deterministic horizontal slice displacement, and luminance-thresholded
+  pixel sorting.
 - `ReactionDiffusion` Gray–Scott Turing textures with periodic boundaries,
   deterministic seeded initiation, configurable kinetics, and source-colour
   tinting.

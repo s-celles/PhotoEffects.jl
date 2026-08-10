@@ -22,6 +22,7 @@ Blobs
 TspArt
 FlowField
 ReactionDiffusion
+Glitch
 Grain
 Vignette
 Bloom

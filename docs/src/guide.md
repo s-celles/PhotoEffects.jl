@@ -21,6 +21,7 @@
 | `TspArt` | One closed route through darkness-weighted stipples |
 | `FlowField` | Source-coloured particles following the image gradient |
 | `ReactionDiffusion` | Periodic Gray–Scott patterns tinted by the source |
+| `Glitch` | Chromatic offsets, displaced slices, and bright-run pixel sorting |
 | `Duotone` | Luminance mapped onto a colour ramp |
 | `Halftone` | Tone represented by marks on a rotated screen |
 | `Contour` | Topographic lines at discrete luminance bands |
@@ -140,6 +141,14 @@ boundaries, then uses the resulting Turing texture to modulate source colour:
 ```julia
 turing = apply(ReactionDiffusion(iterations=80,
     feed=0.055, kill=0.062, spots=12, seed=42), img)
+```
+
+`Glitch` layers chromatic aberration, seeded horizontal displacement, and
+pixel sorting over bright runs. All distances are output pixels:
+
+```julia
+corrupted = apply(Glitch(channel_offset=4, slices=8,
+    displacement=18, threshold=0.55, seed=42), img)
 ```
 
 ## Composing effects

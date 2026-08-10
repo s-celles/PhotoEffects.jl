@@ -5,7 +5,8 @@ image, in a light and a twilight variant.
 
 Status: ✅ done · 🟡 next up · ⚪ planned · 🔬 exploratory
 
-**23 of 24 done**, across five of the seven families.
+**24 of 24 done**, across five of the seven families. The static effect
+catalogue is complete; animation experiments continue in PhotoDynamics.jl.
 
 ---
 
@@ -131,7 +132,7 @@ Gray–Scott patterns coloured by the photo. Coral or skin texture. No
 ready-made Julia package aimed at imagery — a 2D Gray–Scott is about thirty
 lines, and periodic boundaries give a tileable pattern for free.
 
-### 🔬 `Glitch` — glitch / datamosh
+### ✅ `Glitch` — glitch / datamosh
 RGB channel offsets, slices, chromatic aberration, pixel sorting. Vaporwave.
 Nothing exists in Julia for pixel sorting; it is a sort over thresholded runs
 per row, and Julia suits it well.

@@ -37,7 +37,7 @@ SOURCE = RGB{N0f8}.(testimage("lighthouse"))
 @md"""
 ## The catalogue at a glance
 
-Twenty-three effects, five families. Each is shown at representative parameters.
+Twenty-four effects, five families. Each is shown at representative parameters.
 """
 
 #%% code id=gallery tags=hidecode
@@ -60,6 +60,10 @@ let small = fit_cover(SOURCE, 320, 180)
         apply(TspArt(points = 350, optimize = 1), small),
         apply(FlowField(particles = 500, steps = 8), small),
         apply(ReactionDiffusion(iterations = 50, spots = 8), small),
+        apply(
+            Glitch(channel_offset = 3, slices = 5,
+                displacement = 12, seed = 42),
+            small),
         apply(Halftone(cell = 6), small),
         apply(Contour(levels = 7), small),
         apply(Hatching(spacing = 6), small),
@@ -77,7 +81,8 @@ Reading order: **LowPoly**, **Voronoi** · **VoronoiStained**,
 **VoronoiLloyd**, **Cubist** · **HexMosaic**, **PixelMosaic** · **Oil**, **Posterize** ·
 **Watercolour**, **Brushes**, **Pointillism**, **Duotone**, **LineArt**, **Blobs**,
 **TspArt** · **Halftone**, **Contour**,
-**Hatching**, **Ascii**, **Dither** · **FlowField**, **ReactionDiffusion**.
+**Hatching**, **Ascii**, **Dither** · **FlowField**, **ReactionDiffusion**,
+**Glitch**.
 
 ## Tessellation — seeds, then a tiling
 
@@ -479,6 +484,26 @@ apply(
         spots = 10, seed = 42),
     fit_cover(SOURCE, 640, 360))
 
+#%% md id=glitch_md
+@md"""
+## Glitch — orderly digital damage
+
+Red and blue channels slip in opposite directions, seeded horizontal slices
+jump sideways, then bright contiguous runs sort from dark to light. Raising
+the threshold confines sorting to highlights while leaving the displacement
+layers intact.
+"""
+
+#%% code id=glitch_controls
+@bind glitch_offset Slider(0:1:12; default = 4)
+@bind glitch_slices Slider(0:1:16; default = 8)
+
+#%% code id=glitch
+apply(
+    Glitch(channel_offset = glitch_offset, slices = glitch_slices,
+        displacement = 18, threshold = 0.55, seed = 42),
+    fit_cover(SOURCE, 640, 360))
+
 #%% md id=dark_md
 @md"""
 ## Light and twilight
@@ -506,8 +531,10 @@ end
 @md"""
 ## Next
 
-The [roadmap](https://github.com/s-celles/PhotoEffects.jl/blob/main/ROADMAP.md)
-lists the twelve effects still to come, and the conventions a new one must
+The static effect catalogue in the
+[roadmap](https://github.com/s-celles/PhotoEffects.jl/blob/main/ROADMAP.md)
+is complete. Animation experiments continue in PhotoDynamics.jl, while the
+same roadmap records the conventions any future effect must
 follow.
 """
 
